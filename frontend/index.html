@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SENTINAL-AI — Enterprise Penetration Testing & Authentication Audit Platform</title>
+  <title>SENTINAL-AI â€” Enterprise Penetration Testing & Authentication Audit Platform</title>
   <meta name="description" content="Sentinal-AI is an advanced, autonomous penetration testing and credential intelligence platform engineered for security researchers, ethical hackers, and devsecops teams." />
   
-  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/style.css?v=2.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,8 +26,8 @@
         <strong>LEGAL DISCLAIMER:</strong> Sentinal-AI is strictly authorized for <strong>educational, research, and permitted penetration testing only</strong>. The creator accepts no liability for misuse.
       </p>
       <div class="banner-actions">
-        <button class="btn-link-action" onclick="openDisclaimerModal()">Read Full Policy &amp; Terms →</button>
-        <button class="btn-banner-dismiss" onclick="dismissBanner()" title="Acknowledge & Close">✕</button>
+        <button class="btn-link-action" onclick="openDisclaimerModal()">Read Full Policy &amp; Terms â†’</button>
+        <button class="btn-banner-dismiss" onclick="dismissBanner()" title="Acknowledge & Close">âœ•</button>
       </div>
     </div>
   </div>
@@ -135,7 +135,7 @@
         <div class="metric-card critical">
           <div class="metric-top">
             <span class="metric-title">Critical Severity</span>
-            <div class="metric-icon-box">🚨</div>
+            <div class="metric-icon-box">ðŸš¨</div>
           </div>
           <div class="metric-value" id="stat-critical">0</div>
           <div class="metric-sub">Immediate exploit risk (SQLi / Auth Bypass)</div>
@@ -144,7 +144,7 @@
         <div class="metric-card high">
           <div class="metric-top">
             <span class="metric-title">High Severity</span>
-            <div class="metric-icon-box">⚠️</div>
+            <div class="metric-icon-box">âš ï¸</div>
           </div>
           <div class="metric-value" id="stat-high">0</div>
           <div class="metric-sub">Credential compromise &amp; missing controls</div>
@@ -153,7 +153,7 @@
         <div class="metric-card medium">
           <div class="metric-top">
             <span class="metric-title">Medium Severity</span>
-            <div class="metric-icon-box">🛡️</div>
+            <div class="metric-icon-box">ðŸ›¡ï¸</div>
           </div>
           <div class="metric-value" id="stat-medium">0</div>
           <div class="metric-sub">Rate limiting gaps &amp; enumeration vectors</div>
@@ -162,7 +162,7 @@
         <div class="metric-card total">
           <div class="metric-top">
             <span class="metric-title">Total Audit Findings</span>
-            <div class="metric-icon-box">📊</div>
+            <div class="metric-icon-box">ðŸ“Š</div>
           </div>
           <div class="metric-value" id="stat-total">0</div>
           <div class="metric-sub">Aggregated security telemetry</div>
@@ -194,7 +194,7 @@
                 <span class="label-badge">HTTP / HTTPS / REST</span>
               </label>
               <div class="input-with-icon">
-                <span class="input-icon">🎯</span>
+                <span class="input-icon">ðŸŽ¯</span>
                 <input type="url" id="target-url" class="cyber-input" placeholder="http://127.0.0.1:5000" value="http://127.0.0.1:5000" required />
               </div>
               <span class="field-hint">Enter base URL, login form address, or direct JSON authentication route.</span>
@@ -268,7 +268,7 @@
               <button type="submit" class="btn-execute-scan" id="btn-start-scan">
                 <span id="scan-spinner" class="spinner-icon" style="display:none;"></span>
                 <span id="scan-btn-text">Execute Security Audit</span>
-                <span class="btn-arrow">→</span>
+                <span class="btn-arrow">â†’</span>
               </button>
             </div>
           </form>
@@ -285,7 +285,7 @@
 
             <div class="findings-container" id="findings-list">
               <div class="empty-state">
-                <div class="empty-icon">🛡️</div>
+                <div class="empty-icon">ðŸ›¡ï¸</div>
                 <div class="empty-text">No active audit findings recorded.</div>
                 <div class="empty-sub">Specify a target URL above and execute an audit to inspect vulnerabilities and remediation patches in real-time.</div>
               </div>
@@ -365,7 +365,7 @@
 
             <button type="submit" class="btn-execute-scan" id="btn-start-crack">
               <span>Execute Hash Decryption Analysis</span>
-              <span class="btn-arrow">→</span>
+              <span class="btn-arrow">â†’</span>
             </button>
           </form>
 
@@ -419,8 +419,8 @@
           </div>
 
           <div class="advisory-card-sm">
-            <strong>🛡️ Defensive Engineering Note:</strong>
-            <p>Modern applications should discard MD5 and SHA family algorithms for credentials in favor of memory-hard functions such as <strong>Argon2id</strong> or <strong>bcrypt</strong> with work factors ≥ 12.</p>
+            <strong>ðŸ›¡ï¸ Defensive Engineering Note:</strong>
+            <p>Modern applications should discard MD5 and SHA family algorithms for credentials in favor of memory-hard functions such as <strong>Argon2id</strong> or <strong>bcrypt</strong> with work factors â‰¥ 12.</p>
           </div>
         </div>
 
@@ -555,13 +555,13 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon">🛡️</span>
+            <span class="modal-icon">ðŸ›¡ï¸</span>
             <div>
               <h3 id="modal-fix-title">Vulnerability Remediation Guide</h3>
               <span class="modal-subtitle">Sentinal-AI Automated Security Advisor</span>
             </div>
           </div>
-          <button class="btn-modal-close" onclick="closeFixModal()" title="Close">✕</button>
+          <button class="btn-modal-close" onclick="closeFixModal()" title="Close">âœ•</button>
         </div>
 
         <div class="modal-body">
@@ -577,7 +577,7 @@
           </div>
 
           <div class="dialog-section highlight">
-            <h4 class="dialog-heading text-emerald">🛡️ Recommended Engineering Mitigation</h4>
+            <h4 class="dialog-heading text-emerald">ðŸ›¡ï¸ Recommended Engineering Mitigation</h4>
             <p id="modal-fix-remed" class="dialog-text"></p>
           </div>
 
@@ -598,13 +598,13 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-amber);">⚖️</span>
+            <span class="modal-icon" style="color:var(--accent-amber);">âš–ï¸</span>
             <div>
               <h3>Legal Disclaimer &amp; Ethical Use Policy</h3>
               <span class="modal-subtitle">Sentinal-AI Terms of Engagement</span>
             </div>
           </div>
-          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">✕</button>
+          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">âœ•</button>
         </div>
 
         <div class="modal-body legal-text">
@@ -637,13 +637,13 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-cyan);">👨‍💻</span>
+            <span class="modal-icon" style="color:var(--accent-cyan);">ðŸ‘¨â€ðŸ’»</span>
             <div>
               <h3>Creator Profile &amp; Project Credits</h3>
               <span class="modal-subtitle">Built with passion for Hackathon 2026</span>
             </div>
           </div>
-          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">✕</button>
+          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">âœ•</button>
         </div>
 
         <div class="modal-body">
@@ -705,7 +705,7 @@
         <p class="footer-text">
           Engineered and architected with precision by <strong>Afran Layesh</strong> for the 2026 Cybersecurity Competition.
         </p>
-        <span class="hackathon-badge">🏆 Hackathon Security Research Project</span>
+        <span class="hackathon-badge">ðŸ† Hackathon Security Research Project</span>
       </div>
 
       <div class="footer-col legal-col">
@@ -713,12 +713,12 @@
         <p class="footer-legal-snippet">
           Strictly for educational and authorized penetration testing. The author assumes no liability for misuse. The operator is solely responsible for compliance.
         </p>
-        <button class="footer-legal-link" onclick="openDisclaimerModal()">Review Full Disclaimer Policy →</button>
+        <button class="footer-legal-link" onclick="openDisclaimerModal()">Review Full Disclaimer Policy â†’</button>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 Sentinal-AI Project. Built by Afran Layesh. All rights reserved.</span>
+      <span>Â© 2026 Sentinal-AI Project. Built by Afran Layesh. All rights reserved.</span>
       <div class="footer-bottom-links">
         <a href="javascript:void(0)" onclick="openDisclaimerModal()">Ethical Policy</a>
         <a href="javascript:void(0)" onclick="openAboutModal()">Developer Profile</a>
@@ -727,6 +727,6 @@
     </div>
   </footer>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=2.0"></script>
 </body>
 </html>

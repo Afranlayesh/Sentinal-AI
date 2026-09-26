@@ -1,5 +1,5 @@
-"""
-server.py — FastAPI Web Backend for Sentinal-AI Dashboard
+﻿"""
+server.py â€” FastAPI Web Backend for Sentinal-AI Dashboard
 Provides:
   - REST endpoints for scanning, hash cracking, results viewing
   - Real-time WebSockets to stream console output & findings to frontend
@@ -95,7 +95,7 @@ async def serve_index():
     index_file = os.path.join(FRONTEND_DIR, "index.html")
     if os.path.exists(index_file):
         with open(index_file, "r", encoding="utf-8") as f:
-            return f.read()
+            return HTMLResponse(content=f.read(), headers={"Cache-Control": "no-cache, no-store, must-revalidate, max-age=0"})
     return "<h1>Sentinal-AI Dashboard loading...</h1>"
 
 
@@ -304,3 +304,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

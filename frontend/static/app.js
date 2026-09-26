@@ -1,6 +1,6 @@
 /* ==========================================================================
    SENTINAL-AI — Enterprise Penetration Testing Suite Frontend Logic
-   Engineered by Afran Layesh for Hackathon 2026
+   Engineered by Afran Layesh 
    ========================================================================== */
 
 // Global State
