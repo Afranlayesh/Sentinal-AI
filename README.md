@@ -66,7 +66,7 @@ Sentinal-AI operates across four modular phases:
 ### 1. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/avirupdey2006/Sentinal-AI.git
+git clone https://github.com/afranlayesh/Sentinal-AI.git
 cd Sentinal-AI
 pip install -r requirements.txt
 ```
