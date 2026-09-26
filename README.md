@@ -107,6 +107,8 @@ python lab/mock_server.py
 ## 👨‍💻 Author & Project Credits
 
 * **Lead Architect & Developer:** **Afran Layesh**
+* **GitHub Profile:** [@afranlayesh](https://github.com/afranlayesh)
+* **LinkedIn Profile:** [Afran Layesh](https://linkedin.com/in/afran-layesh)
 * **Project Purpose:** Developed for cybersecurity research, academic demonstration, and the **2026 Hackathon Competition**.
 * **Core Technologies:** Python 3.11, FastAPI, Uvicorn, WebSockets, Vanilla CSS / Glassmorphism, Hashcat, Rich, BeautifulSoup4, Requests.
 
