@@ -96,8 +96,7 @@ def build_context(
             verify=False,
             allow_redirects=True,
         )
-        resp.raise_for_status()
-        soup = BeautifulSoup(resp.text, "lxml")
+        soup = BeautifulSoup(resp.text or "", "lxml")
 
         # ── Page title → company/brand name candidate ──────────────────────
         if soup.title and soup.title.string:

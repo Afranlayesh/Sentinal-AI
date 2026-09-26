@@ -25,10 +25,4 @@ DB_CONNECTION_STRING  = os.getenv("DB_CONNECTION_STRING", "")
 
 # ── Shared output ──
 FINDINGS_DIR = "lab/results/findings"
-AI_CACHE_DIR = "lab/results/ai_cache"
-
-# Debug GEMINI_API_KEY
-if not GEMINI_API_KEY:
-    print("[!] DEBUG: GEMINI_API_KEY is EMPTY in config.py")
-else:
-    print(f"[+] DEBUG: GEMINI_API_KEY loaded (Starts with: {GEMINI_API_KEY[:5]}...)")
+AI_CACHE_DIR = "lab/results/ai_cache"

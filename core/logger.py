@@ -9,7 +9,7 @@ logging.basicConfig(
     format="%(message)s",
     handlers=[
         RichHandler(rich_tracebacks=True, show_path=False),
-        logging.FileHandler("logs/sentinal.log")
+        logging.FileHandler("logs/sentinal.log", encoding="utf-8")
     ]
 )
 

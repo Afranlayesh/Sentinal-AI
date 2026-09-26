@@ -14,7 +14,10 @@ def _get_engine(connection_string: str):
     """Creates SQLAlchemy engine. Supports SQLite, MySQL, PostgreSQL, MSSQL."""
     try:
         from sqlalchemy import create_engine
-        return create_engine(connection_string, connect_args={"connect_timeout": 10})
+        connect_args = {}
+        if not connection_string.startswith("sqlite"):
+            connect_args["connect_timeout"] = 10
+        return create_engine(connection_string, connect_args=connect_args)
     except ImportError:
         raise ImportError("sqlalchemy not installed — run: pip install sqlalchemy")
     except Exception as e:

@@ -1,5 +1,5 @@
 """
-server.py â€” FastAPI Web Backend for Sentinal-AI Dashboard
+server.py — FastAPI Web Backend for Sentinal-AI Dashboard
 Provides:
   - REST endpoints for scanning, hash cracking, results viewing
   - Real-time WebSockets to stream console output & findings to frontend
@@ -249,7 +249,10 @@ async def start_scan(req: ScanRequest):
     if current_scan_task["is_running"]:
         return JSONResponse(status_code=400, content={"error": "A scan is already in progress"})
 
-    loop = asyncio.get_event_loop()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.get_event_loop()
     thread = threading.Thread(target=run_scan_worker, args=(loop, req), daemon=True)
     thread.start()
 
@@ -299,7 +302,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
 def main():
     port = int(os.environ.get("PORT", 8000))
-    host = os.environ.get("HOST", "0.0.0.0" if os.environ.get("PORT") else "127.0.0.1")
+    host = os.environ.get("HOST", "0.0.0.0")
     print(f"[*] Starting Sentinal-AI Command Center Dashboard at http://{host}:{port}")
     uvicorn.run("server:app", host=host, port=port, reload=False)
 

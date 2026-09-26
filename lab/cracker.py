@@ -1,6 +1,10 @@
 import hashlib
 import time
-from tqdm import tqdm
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(iterable, *args, **kwargs):
+        return iterable
 from rich.console import Console
 from rich.table import Table
 from core.config import WORDLIST_DEFAULT
