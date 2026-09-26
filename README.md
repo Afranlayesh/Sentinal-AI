@@ -66,8 +66,8 @@ Sentinal-AI operates across four modular phases:
 ### 1. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/avirupdey2006/X-Auth-AI.git
-cd X-Auth-AI
+git clone https://github.com/avirupdey2006/Sentinal-AI.git
+cd Sentinal-AI
 pip install -r requirements.txt
 ```
 
