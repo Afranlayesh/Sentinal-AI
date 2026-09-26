@@ -1,732 +1,732 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SENTINAL-AI â€” Enterprise Penetration Testing & Authentication Audit Platform</title>
-  <meta name="description" content="Sentinal-AI is an advanced, autonomous penetration testing and credential intelligence platform engineered for security researchers, ethical hackers, and devsecops teams." />
-  
-  <link rel="stylesheet" href="/static/style.css?v=2.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Ambient Cyber Particle Mesh Canvas -->
-  <canvas id="ambient-canvas"></canvas>
-
-  <!-- Legal & Ethical Persistent Advisory Banner -->
-  <div class="advisory-top-banner" id="advisory-banner">
-    <div class="banner-inner">
-      <div class="banner-tag">
-        <span class="pulse-icon"></span>
-        <strong>SECURITY AUDITING PLATFORM</strong>
-      </div>
-      <p class="banner-text">
-        <strong>LEGAL DISCLAIMER:</strong> Sentinal-AI is strictly authorized for <strong>educational, research, and permitted penetration testing only</strong>. The creator accepts no liability for misuse.
-      </p>
-      <div class="banner-actions">
-        <button class="btn-link-action" onclick="openDisclaimerModal()">Read Full Policy &amp; Terms â†’</button>
-        <button class="btn-banner-dismiss" onclick="dismissBanner()" title="Acknowledge & Close">âœ•</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Primary Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-left">
-      <div class="brand-container">
-        <div class="brand-emblem">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </div>
-        <div class="brand-details">
-          <div class="brand-title-row">
-            <span class="brand-name">SENTINAL<span>-AI</span></span>
-            <span class="brand-version">v1.2 PRO</span>
-          </div>
-          <span class="brand-subtitle">Autonomous Security &amp; Credential Intelligence</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <nav class="nav-links">
-      <button class="nav-btn active" data-tab="tab-scan">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
-        <span>Audit Console</span>
-      </button>
-      <button class="nav-btn" data-tab="tab-cracker">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>Hash Intelligence</span>
-      </button>
-      <button class="nav-btn" data-tab="tab-reports">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-        <span>Audit Reports</span>
-      </button>
-      <button class="nav-btn" data-tab="tab-docs">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        <span>Architecture &amp; Docs</span>
-      </button>
-    </nav>
-
-    <!-- Nav Actions & Live Telemetry -->
-    <div class="nav-right">
-      <button class="btn-header-secondary" onclick="openAboutModal()" title="View Creator and Hackathon Credits">
-        <span class="user-avatar-dot"></span>
-        <span class="creator-label">By <strong>Afran Layesh</strong></span>
-      </button>
-
-      <button class="btn-header-disclaimer" onclick="openDisclaimerModal()" title="Legal Disclaimer">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>Disclaimer</span>
-      </button>
-
-      <div class="status-badge" id="engine-status">
-        <div class="status-dot"></div>
-        <span>CONNECTING...</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="container">
-    
-    <!-- Hero / Platform Telemetry Strip -->
-    <section class="hero-strip">
-      <div class="hero-content">
-        <div class="hero-pill">
-          <span class="dot-online"></span>
-          <span>DEVSECOPS RED &amp; BLUE TEAMING SUITE</span>
-        </div>
-        <h2 class="hero-heading">Authentication Vulnerability Assessment &amp; Remediation</h2>
-        <p class="hero-desc">
-          Automated reconnaissance, SQL injection verification, adaptive brute-force analysis, and instant engineering patch generation aligned with OWASP Top 10 standards.
-        </p>
-      </div>
-
-      <div class="hero-features">
-        <div class="feature-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Automated Remediation</span>
-        </div>
-        <div class="feature-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Zero External Exploits</span>
-        </div>
-        <div class="feature-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>NIST SP 800-63B Aligned</span>
-        </div>
-        <div class="feature-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Safe Sandboxed Emulation</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 1: Audit Console (Attack Center) -->
-    <div id="tab-scan" class="tab-pane active">
-      
-      <!-- Real-Time Metrics Strip -->
-      <div class="metrics-grid">
-        <div class="metric-card critical">
-          <div class="metric-top">
-            <span class="metric-title">Critical Severity</span>
-            <div class="metric-icon-box">ðŸš¨</div>
-          </div>
-          <div class="metric-value" id="stat-critical">0</div>
-          <div class="metric-sub">Immediate exploit risk (SQLi / Auth Bypass)</div>
-        </div>
-
-        <div class="metric-card high">
-          <div class="metric-top">
-            <span class="metric-title">High Severity</span>
-            <div class="metric-icon-box">âš ï¸</div>
-          </div>
-          <div class="metric-value" id="stat-high">0</div>
-          <div class="metric-sub">Credential compromise &amp; missing controls</div>
-        </div>
-
-        <div class="metric-card medium">
-          <div class="metric-top">
-            <span class="metric-title">Medium Severity</span>
-            <div class="metric-icon-box">ðŸ›¡ï¸</div>
-          </div>
-          <div class="metric-value" id="stat-medium">0</div>
-          <div class="metric-sub">Rate limiting gaps &amp; enumeration vectors</div>
-        </div>
-
-        <div class="metric-card total">
-          <div class="metric-top">
-            <span class="metric-title">Total Audit Findings</span>
-            <div class="metric-icon-box">ðŸ“Š</div>
-          </div>
-          <div class="metric-value" id="stat-total">0</div>
-          <div class="metric-sub">Aggregated security telemetry</div>
-        </div>
-      </div>
-
-      <!-- Main Operational Split Screen -->
-      <div class="workspace-grid">
-        
-        <!-- Left: Configuration & Target Selection -->
-        <div class="panel-card config-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="m8 12 8 0"/></svg>
-              <span>Target Configuration &amp; Audit Scope</span>
-            </div>
-            
-            <div class="presets-group">
-              <span class="preset-label">Quick Presets:</span>
-              <button type="button" class="btn-preset active" onclick="setTargetPreset('http://127.0.0.1:5000')">Local Mock Server</button>
-              <button type="button" class="btn-preset" onclick="setTargetPreset('http://localhost:3000')">Juice Shop</button>
-            </div>
-          </div>
-
-          <form id="scan-form">
-            <div class="input-block">
-              <label class="field-label" for="target-url">
-                <span>Target URI / Endpoint</span>
-                <span class="label-badge">HTTP / HTTPS / REST</span>
-              </label>
-              <div class="input-with-icon">
-                <span class="input-icon">ðŸŽ¯</span>
-                <input type="url" id="target-url" class="cyber-input" placeholder="http://127.0.0.1:5000" value="http://127.0.0.1:5000" required />
-              </div>
-              <span class="field-hint">Enter base URL, login form address, or direct JSON authentication route.</span>
-            </div>
-
-            <!-- Audit Modules Selector -->
-            <div class="modules-section">
-              <label class="field-label">Active Audit Modules</label>
-              <div class="modules-grid">
-                <label class="module-checkbox-card">
-                  <input type="checkbox" id="opt-sqli" checked />
-                  <div class="checkbox-content">
-                    <div class="checkbox-top">
-                      <span class="module-name">SQL Injection Engine</span>
-                      <span class="module-tag crit">A03:2021</span>
-                    </div>
-                    <span class="module-desc">Tests SQLite, MySQL, and generic union/tautology bypasses.</span>
-                  </div>
-                </label>
-
-                <label class="module-checkbox-card">
-                  <input type="checkbox" id="opt-brute" checked />
-                  <div class="checkbox-content">
-                    <div class="checkbox-top">
-                      <span class="module-name">Credential Emulation</span>
-                      <span class="module-tag high">A07:2021</span>
-                    </div>
-                    <span class="module-desc">Tests common credentials, CSRF handling, and token extraction.</span>
-                  </div>
-                </label>
-
-                <label class="module-checkbox-card">
-                  <input type="checkbox" id="opt-ratelimit" checked />
-                  <div class="checkbox-content">
-                    <div class="checkbox-top">
-                      <span class="module-name">Rate Limit Diagnostics</span>
-                      <span class="module-tag med">A04:2021</span>
-                    </div>
-                    <span class="module-desc">Burst velocity test for anti-automation &amp; HTTP 429 backoff.</span>
-                  </div>
-                </label>
-
-                <label class="module-checkbox-card">
-                  <input type="checkbox" id="opt-ai" />
-                  <div class="checkbox-content">
-                    <div class="checkbox-top">
-                      <span class="module-name">Contextual Mutation AI</span>
-                      <span class="module-tag ai">AI Hybrid</span>
-                    </div>
-                    <span class="module-desc">Context-aware rule engine tailored for target company naming.</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <!-- Optional Target Metadata -->
-            <div class="metadata-row">
-              <div class="input-block">
-                <label class="field-label" for="opt-company">Organization Name (Contextual)</label>
-                <input type="text" id="opt-company" class="cyber-input" placeholder="e.g. Acme Corp" />
-              </div>
-
-              <div class="input-block">
-                <label class="field-label" for="opt-usernames">Scoped Account Usernames</label>
-                <input type="text" id="opt-usernames" class="cyber-input" placeholder="admin, root, test@domain.com" />
-              </div>
-            </div>
-
-            <!-- Execution Button -->
-            <div class="action-row">
-              <button type="submit" class="btn-execute-scan" id="btn-start-scan">
-                <span id="scan-spinner" class="spinner-icon" style="display:none;"></span>
-                <span id="scan-btn-text">Execute Security Audit</span>
-                <span class="btn-arrow">â†’</span>
-              </button>
-            </div>
-          </form>
-
-          <!-- Real-Time Discovered Findings List -->
-          <div class="findings-subpanel">
-            <div class="subpanel-header">
-              <div class="subpanel-title">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>Live Audit Findings &amp; Diagnostic Telemetry</span>
-              </div>
-              <span class="telemetry-badge" id="findings-count-badge">0 findings</span>
-            </div>
-
-            <div class="findings-container" id="findings-list">
-              <div class="empty-state">
-                <div class="empty-icon">ðŸ›¡ï¸</div>
-                <div class="empty-text">No active audit findings recorded.</div>
-                <div class="empty-sub">Specify a target URL above and execute an audit to inspect vulnerabilities and remediation patches in real-time.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Live Terminal & Engine Stream -->
-        <div class="panel-card terminal-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-              <span>Live Engine Telemetry Stream</span>
-            </div>
-            
-            <div class="terminal-controls">
-              <span class="live-pulse-badge">LIVE STREAM</span>
-              <button type="button" class="btn-terminal-action" onclick="copyTerminalLogs()" title="Copy logs to clipboard">Copy</button>
-              <button type="button" class="btn-terminal-action" onclick="clearTerminal()" title="Clear terminal">Clear</button>
-            </div>
-          </div>
-
-          <div class="cyber-terminal">
-            <div class="terminal-bar">
-              <div class="terminal-window-buttons">
-                <span class="win-dot red"></span>
-                <span class="win-dot yellow"></span>
-                <span class="win-dot green"></span>
-              </div>
-              <span class="terminal-name">sentinal-ai // core-orchestrator.stdout</span>
-              <span class="terminal-buffer-size" id="terminal-stats">IDLE</span>
-            </div>
-            <div class="terminal-scroll-area" id="terminal-output">
-              <div class="terminal-line info">[*] Sentinal-AI Autonomous Security Console initialized.</div>
-              <div class="terminal-line dim">[*] Engine Version: 1.2.0-PRO (OWASP Aligned).</div>
-              <div class="terminal-line dim">[*] Target Dispatcher: Standby. Select target above to initiate audit.</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TAB 2: Hash Intelligence Suite -->
-    <div id="tab-cracker" class="tab-pane">
-      <div class="cracker-grid">
-        
-        <div class="panel-card">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Cryptographic Hash Recovery &amp; Auditing</span>
-            </div>
-          </div>
-
-          <p class="section-desc">
-            Tests password hashes against standard entropy thresholds and multi-threaded recovery engines. Verifies if leaked hashes are susceptible to instantaneous dictionary and permutation compromise.
-          </p>
-
-          <form id="crack-form">
-            <div class="input-block">
-              <label class="field-label" for="crack-hash">Target Hash String</label>
-              <input type="text" id="crack-hash" class="cyber-input mono" placeholder="e.g. 5f4dcc3b5aa765d61d8327deb882cf99" required />
-              <span class="field-hint">Supports MD5, SHA-1, SHA-256, SHA-512, and NTLM patterns.</span>
-            </div>
-
-            <div class="toggle-card">
-              <label class="custom-switch">
-                <input type="checkbox" id="opt-gpu" />
-                <span class="slider"></span>
-              </label>
-              <div class="toggle-text">
-                <strong>Enable Hashcat GPU Acceleration Mode</strong>
-                <span>Falls back to native Python CPU hash pipeline if GPU is unavailable.</span>
-              </div>
-            </div>
-
-            <button type="submit" class="btn-execute-scan" id="btn-start-crack">
-              <span>Execute Hash Decryption Analysis</span>
-              <span class="btn-arrow">â†’</span>
-            </button>
-          </form>
-
-          <div id="crack-result-box" class="crack-result-container" style="display:none;">
-            <div class="result-header">
-              <span class="result-badge" id="crack-result-badge">STATUS</span>
-              <span class="result-subtitle" id="crack-result-text">Analysis completed</span>
-            </div>
-            <div class="result-body">
-              <div class="result-label">Recovered Plaintext Credential:</div>
-              <div class="result-value mono" id="crack-plain-password">N/A</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hash Test Vectors -->
-        <div class="panel-card">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span>Verification Test Vectors</span>
-            </div>
-          </div>
-
-          <p class="section-desc">Select any pre-computed hash test vector below to verify password auditing performance:</p>
-
-          <div class="vectors-list">
-            <div class="vector-item" onclick="setCrackVector('5f4dcc3b5aa765d61d8327deb882cf99')">
-              <div class="vector-top">
-                <span class="vector-type">MD5</span>
-                <span class="vector-label">Sample: "password"</span>
-              </div>
-              <code class="vector-code">5f4dcc3b5aa765d61d8327deb882cf99</code>
-            </div>
-
-            <div class="vector-item" onclick="setCrackVector('f865b53623b121fd34ee5426c792e5c33af8c227')">
-              <div class="vector-top">
-                <span class="vector-type">SHA-1</span>
-                <span class="vector-label">Sample: "admin123"</span>
-              </div>
-              <code class="vector-code">f865b53623b121fd34ee5426c792e5c33af8c227</code>
-            </div>
-
-            <div class="vector-item" onclick="setCrackVector('8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92')">
-              <div class="vector-top">
-                <span class="vector-type">SHA-256</span>
-                <span class="vector-label">Sample: "123456"</span>
-              </div>
-              <code class="vector-code">8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</code>
-            </div>
-          </div>
-
-          <div class="advisory-card-sm">
-            <strong>ðŸ›¡ï¸ Defensive Engineering Note:</strong>
-            <p>Modern applications should discard MD5 and SHA family algorithms for credentials in favor of memory-hard functions such as <strong>Argon2id</strong> or <strong>bcrypt</strong> with work factors â‰¥ 12.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TAB 3: Reports History -->
-    <div id="tab-reports" class="tab-pane">
-      <div class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-            <span>Executive Audit Archives &amp; Formal Deliverables</span>
-          </div>
-          <button class="btn-terminal-action" onclick="loadFindings()">Refresh Records</button>
-        </div>
-
-        <p class="section-desc">
-          Historical vulnerability logs generated by Sentinal-AI. Inspect detailed diagnostics or export executive-ready HTML/PDF reports with one click.
-        </p>
-
-        <div class="table-responsive">
-          <table class="cyber-table">
-            <thead>
-              <tr>
-                <th>Audit Timestamp</th>
-                <th>Target URI</th>
-                <th>Calculated Risk</th>
-                <th>Findings Overview</th>
-                <th>Export Actions</th>
-              </tr>
-            </thead>
-            <tbody id="reports-table-body">
-              <!-- Dynamically populated -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: Architecture & Documentation -->
-    <div id="tab-docs" class="tab-pane">
-      <div class="docs-grid">
-        
-        <div class="panel-card">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              <span>Platform Architectural Overview</span>
-            </div>
-          </div>
-          
-          <div class="doc-body">
-            <p>Sentinal-AI is architected around a 4-phase automated security evaluation methodology designed to provide full-cycle penetration testing and remediation.</p>
-            
-            <div class="phases-timeline">
-              <div class="phase-step">
-                <div class="phase-num">01</div>
-                <div class="phase-details">
-                  <h4>Surface Reconnaissance (Scout)</h4>
-                  <p>Crawls forms, detects Single Page Applications (SPAs), parses CSRF protection tokens, and maps REST endpoints.</p>
-                </div>
-              </div>
-
-              <div class="phase-step">
-                <div class="phase-num">02</div>
-                <div class="phase-details">
-                  <h4>Threat Emulation (Attacker)</h4>
-                  <p>Executes non-destructive SQL injection probes, rate limit velocity tests, and authentication bypass checks.</p>
-                </div>
-              </div>
-
-              <div class="phase-step">
-                <div class="phase-num">03</div>
-                <div class="phase-details">
-                  <h4>Intelligence &amp; Mutation Engine</h4>
-                  <p>Applies domain-specific linguistic mutations and token rules to discover weak default credentials.</p>
-                </div>
-              </div>
-
-              <div class="phase-step">
-                <div class="phase-num">04</div>
-                <div class="phase-details">
-                  <h4>Automated Remediation (Architect)</h4>
-                  <p>Synthesizes formal risk reports with ready-to-deploy parameterized query patches across Python, Node, and PHP.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel-card">
-          <div class="panel-header">
-            <div class="panel-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Compliance &amp; Standards Alignment</span>
-            </div>
-          </div>
-
-          <div class="standards-list">
-            <div class="standard-card">
-              <div class="standard-badge">OWASP A03:2021</div>
-              <h4>Injection Vulnerabilities</h4>
-              <p>Detects unsanitized input vectors, evaluates prepared statement protections, and validates error message disclosures.</p>
-            </div>
-
-            <div class="standard-card">
-              <div class="standard-badge">OWASP A07:2021</div>
-              <h4>Identification &amp; Authentication Failures</h4>
-              <p>Audits credential stuffing resilience, weak session management, and missing anti-automation controls.</p>
-            </div>
-
-            <div class="standard-card">
-              <div class="standard-badge">NIST SP 800-63B</div>
-              <h4>Digital Identity Guidelines</h4>
-              <p>Evaluates authenticator strength, rate limiting policies, and password mutation complexity thresholds.</p>
-            </div>
-          </div>
-
-          <div class="author-spotlight">
-            <div class="spotlight-title">Project &amp; Author Credits</div>
-            <p>Built and architected by <strong>Afran Layesh</strong> for the 2026 Cybersecurity Hackathon.</p>
-            <button class="btn-preset" onclick="openAboutModal()">View Developer Profile &amp; Project Info</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Defensive Fix / Remediation Modal -->
-    <div id="fix-modal" class="modal-backdrop" style="display:none;">
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <div class="modal-title-row">
-            <span class="modal-icon">ðŸ›¡ï¸</span>
-            <div>
-              <h3 id="modal-fix-title">Vulnerability Remediation Guide</h3>
-              <span class="modal-subtitle">Sentinal-AI Automated Security Advisor</span>
-            </div>
-          </div>
-          <button class="btn-modal-close" onclick="closeFixModal()" title="Close">âœ•</button>
-        </div>
-
-        <div class="modal-body">
-          <div class="meta-tags-row">
-            <span id="modal-fix-owasp" class="tag-badge owasp">OWASP Top 10</span>
-            <span id="modal-fix-cwe" class="tag-badge cwe">CWE</span>
-            <span id="modal-fix-target" class="tag-badge target mono">Target</span>
-          </div>
-
-          <div class="dialog-section">
-            <h4 class="dialog-heading">Root Cause &amp; Threat Diagnostic</h4>
-            <p id="modal-fix-detail" class="dialog-text"></p>
-          </div>
-
-          <div class="dialog-section highlight">
-            <h4 class="dialog-heading text-emerald">ðŸ›¡ï¸ Recommended Engineering Mitigation</h4>
-            <p id="modal-fix-remed" class="dialog-text"></p>
-          </div>
-
-          <div class="dialog-section" id="modal-code-section">
-            <h4 class="dialog-heading">Production-Ready Patch Snippets</h4>
-            <div id="modal-code-container" class="snippets-container"></div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn-preset" onclick="closeFixModal()">Dismiss Advisor</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Legal & Ethical Policy Modal -->
-    <div id="disclaimer-modal" class="modal-backdrop" style="display:none;">
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-amber);">âš–ï¸</span>
-            <div>
-              <h3>Legal Disclaimer &amp; Ethical Use Policy</h3>
-              <span class="modal-subtitle">Sentinal-AI Terms of Engagement</span>
-            </div>
-          </div>
-          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">âœ•</button>
-        </div>
-
-        <div class="modal-body legal-text">
-          <div class="alert-box-warning">
-            <strong>CRITICAL LEGAL NOTICE:</strong>
-            <p>Sentinal-AI is an educational penetration testing engine developed solely for cybersecurity research, academic demonstration, and authorized security assessments.</p>
-          </div>
-
-          <h4>1. Authorized Testing Only</h4>
-          <p>This software must only be operated against systems, web applications, or local environments (e.g. DVWA, OWASP Juice Shop, or designated lab mock servers) that you explicitly own or have obtained written, verifiable authorization from the system owner to test.</p>
-
-          <h4>2. Limitation of Liability</h4>
-          <p>The creator and developer of Sentinal-AI (Afran Layesh) accepts <strong>zero responsibility and no liability whatsoever</strong> for any damages, downtime, legal infringements, data loss, or system disruptions resulting from the direct or indirect use, misuse, or deployment of this tool.</p>
-
-          <h4>3. Sole User Responsibility</h4>
-          <p>The operator/end-user bears <strong>sole and complete responsibility</strong> for compliance with all applicable local, national, and international cybersecurity regulations, including the Computer Fraud and Abuse Act (CFAA), the UK Computer Misuse Act, GDPR, and corresponding legislation.</p>
-
-          <h4>4. Academic &amp; Research Statement</h4>
-          <p>This software was developed by an independent creator for research, fun, and hackathon demonstration. It is provided on an "AS-IS" basis with no warranties, express or implied.</p>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn-execute-scan" onclick="closeDisclaimerModal()">I Acknowledge &amp; Accept These Terms</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- About Creator & Hackathon Credits Modal -->
-    <div id="about-modal" class="modal-backdrop" style="display:none;">
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-cyan);">ðŸ‘¨â€ðŸ’»</span>
-            <div>
-              <h3>Creator Profile &amp; Project Credits</h3>
-              <span class="modal-subtitle">Built with passion for Hackathon 2026</span>
-            </div>
-          </div>
-          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">âœ•</button>
-        </div>
-
-        <div class="modal-body">
-          <div class="creator-profile-card">
-            <div class="creator-avatar">AL</div>
-            <div class="creator-info">
-              <h3>Afran Layesh</h3>
-              <span class="creator-role">Lead Architect &amp; Security Engineering Developer</span>
-              <p class="creator-bio">
-                Designed and engineered Sentinal-AI as an autonomous credential intelligence and authentication security auditor to bridge offensive penetration testing with automated defensive remediation.
-              </p>
-            </div>
-          </div>
-
-          <div class="dialog-section">
-            <h4 class="dialog-heading">Project Mission &amp; Purpose</h4>
-            <p class="dialog-text">
-              "I built Sentinal-AI for fun and for the hackathon competition to showcase how intelligent automation can detect authentication vulnerabilities before attackers exploit them, while instantly giving developers copy-pasteable parameterized code fixes to secure their platforms."
-            </p>
-          </div>
-
-          <div class="dialog-section">
-            <h4 class="dialog-heading">Technology Stack</h4>
-            <div class="tech-tags-cloud">
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">Python 3.11</span>
-              <span class="tech-tag">WebSockets</span>
-              <span class="tech-tag">OWASP Juice Shop API</span>
-              <span class="tech-tag">Hashcat Integration</span>
-              <span class="tech-tag">Vanilla CSS / Modern Glassmorphism</span>
-              <span class="tech-tag">Automated Remediation Engine</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn-preset" onclick="closeAboutModal()">Close</button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Polished Footer with Credits & Legal Disclaimers -->
-  <footer class="app-footer">
-    <div class="footer-inner">
-      <div class="footer-col brand-col">
-        <div class="footer-brand">
-          <span class="brand-dot"></span>
-          <strong>SENTINAL-AI</strong>
-        </div>
-        <p class="footer-text">
-          Enterprise-grade credential intelligence, vulnerability auditing, and automated defensive engineering.
-        </p>
-      </div>
-
-      <div class="footer-col credit-col">
-        <div class="footer-heading">Creator &amp; Hackathon Credits</div>
-        <p class="footer-text">
-          Engineered and architected with precision by <strong>Afran Layesh</strong> for the 2026 Cybersecurity Competition.
-        </p>
-        <span class="hackathon-badge">ðŸ† Hackathon Security Research Project</span>
-      </div>
-
-      <div class="footer-col legal-col">
-        <div class="footer-heading">Ethical Use &amp; Compliance</div>
-        <p class="footer-legal-snippet">
-          Strictly for educational and authorized penetration testing. The author assumes no liability for misuse. The operator is solely responsible for compliance.
-        </p>
-        <button class="footer-legal-link" onclick="openDisclaimerModal()">Review Full Disclaimer Policy â†’</button>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <span>Â© 2026 Sentinal-AI Project. Built by Afran Layesh. All rights reserved.</span>
-      <div class="footer-bottom-links">
-        <a href="javascript:void(0)" onclick="openDisclaimerModal()">Ethical Policy</a>
-        <a href="javascript:void(0)" onclick="openAboutModal()">Developer Profile</a>
-        <a href="javascript:void(0)" onclick="switchTab('tab-docs')">System Architecture</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="/static/app.js?v=2.0"></script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SENTINAL-AI — Enterprise Penetration Testing & Authentication Audit Platform</title>
+  <meta name="description" content="Sentinal-AI is an advanced, autonomous penetration testing and credential intelligence platform engineered for security researchers, ethical hackers, and devsecops teams." />
+  
+  <link rel="stylesheet" href="/static/style.css?v=2.1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ambient Cyber Particle Mesh Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Legal & Ethical Persistent Advisory Banner -->
+  <div class="advisory-top-banner" id="advisory-banner">
+    <div class="banner-inner">
+      <div class="banner-tag">
+        <span class="pulse-icon"></span>
+        <strong>SECURITY AUDITING PLATFORM</strong>
+      </div>
+      <p class="banner-text">
+        <strong>LEGAL DISCLAIMER:</strong> Sentinal-AI is strictly authorized for <strong>educational, research, and permitted penetration testing only</strong>. The creator accepts no liability for misuse.
+      </p>
+      <div class="banner-actions">
+        <button class="btn-link-action" onclick="openDisclaimerModal()">Read Full Policy &amp; Terms →</button>
+        <button class="btn-banner-dismiss" onclick="dismissBanner()" title="Acknowledge & Close">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="brand-container">
+        <div class="brand-emblem">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-details">
+          <div class="brand-title-row">
+            <span class="brand-name">SENTINAL<span>-AI</span></span>
+            <span class="brand-version">v1.2 PRO</span>
+          </div>
+          <span class="brand-subtitle">Autonomous Security &amp; Credential Intelligence</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-links">
+      <button class="nav-btn active" data-tab="tab-scan">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+        <span>Audit Console</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-cracker">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Hash Intelligence</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-reports">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        <span>Audit Reports</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-docs">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Architecture &amp; Docs</span>
+      </button>
+    </nav>
+
+    <!-- Nav Actions & Live Telemetry -->
+    <div class="nav-right">
+      <button class="btn-header-secondary" onclick="openAboutModal()" title="View Creator and Hackathon Credits">
+        <span class="user-avatar-dot"></span>
+        <span class="creator-label">By <strong>Afran Layesh</strong></span>
+      </button>
+
+      <button class="btn-header-disclaimer" onclick="openDisclaimerModal()" title="Legal Disclaimer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Disclaimer</span>
+      </button>
+
+      <div class="status-badge" id="engine-status">
+        <div class="status-dot"></div>
+        <span>CONNECTING...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Hero / Platform Telemetry Strip -->
+    <section class="hero-strip">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span class="dot-online"></span>
+          <span>DEVSECOPS RED &amp; BLUE TEAMING SUITE</span>
+        </div>
+        <h2 class="hero-heading">Authentication Vulnerability Assessment &amp; Remediation</h2>
+        <p class="hero-desc">
+          Automated reconnaissance, SQL injection verification, adaptive brute-force analysis, and instant engineering patch generation aligned with OWASP Top 10 standards.
+        </p>
+      </div>
+
+      <div class="hero-features">
+        <div class="feature-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Automated Remediation</span>
+        </div>
+        <div class="feature-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Zero External Exploits</span>
+        </div>
+        <div class="feature-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>NIST SP 800-63B Aligned</span>
+        </div>
+        <div class="feature-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Safe Sandboxed Emulation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1: Audit Console (Attack Center) -->
+    <div id="tab-scan" class="tab-pane active">
+      
+      <!-- Real-Time Metrics Strip -->
+      <div class="metrics-grid">
+        <div class="metric-card critical">
+          <div class="metric-top">
+            <span class="metric-title">Critical Severity</span>
+            <div class="metric-icon-box">🚨</div>
+          </div>
+          <div class="metric-value" id="stat-critical">0</div>
+          <div class="metric-sub">Immediate exploit risk (SQLi / Auth Bypass)</div>
+        </div>
+
+        <div class="metric-card high">
+          <div class="metric-top">
+            <span class="metric-title">High Severity</span>
+            <div class="metric-icon-box">⚠️</div>
+          </div>
+          <div class="metric-value" id="stat-high">0</div>
+          <div class="metric-sub">Credential compromise &amp; missing controls</div>
+        </div>
+
+        <div class="metric-card medium">
+          <div class="metric-top">
+            <span class="metric-title">Medium Severity</span>
+            <div class="metric-icon-box">🛡️</div>
+          </div>
+          <div class="metric-value" id="stat-medium">0</div>
+          <div class="metric-sub">Rate limiting gaps &amp; enumeration vectors</div>
+        </div>
+
+        <div class="metric-card total">
+          <div class="metric-top">
+            <span class="metric-title">Total Audit Findings</span>
+            <div class="metric-icon-box">📊</div>
+          </div>
+          <div class="metric-value" id="stat-total">0</div>
+          <div class="metric-sub">Aggregated security telemetry</div>
+        </div>
+      </div>
+
+      <!-- Main Operational Split Screen -->
+      <div class="workspace-grid">
+        
+        <!-- Left: Configuration & Target Selection -->
+        <div class="panel-card config-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="m8 12 8 0"/></svg>
+              <span>Target Configuration &amp; Audit Scope</span>
+            </div>
+            
+            <div class="presets-group">
+              <span class="preset-label">Quick Presets:</span>
+              <button type="button" class="btn-preset active" onclick="setTargetPreset('http://127.0.0.1:5000', this)">Local Mock Server</button>
+              <button type="button" class="btn-preset" onclick="setTargetPreset('http://localhost:3000', this)">Juice Shop</button>
+            </div>
+          </div>
+
+          <form id="scan-form">
+            <div class="input-block">
+              <label class="field-label" for="target-url">
+                <span>Target URI / Endpoint</span>
+                <span class="label-badge">HTTP / HTTPS / REST</span>
+              </label>
+              <div class="input-with-icon">
+                <span class="input-icon">🎯</span>
+                <input type="url" id="target-url" class="cyber-input" placeholder="http://127.0.0.1:5000" value="http://127.0.0.1:5000" required />
+              </div>
+              <span class="field-hint">Enter base URL, login form address, or direct JSON authentication route.</span>
+            </div>
+
+            <!-- Audit Modules Selector -->
+            <div class="modules-section">
+              <label class="field-label">Active Audit Modules</label>
+              <div class="modules-grid">
+                <label class="module-checkbox-card">
+                  <input type="checkbox" id="opt-sqli" checked />
+                  <div class="checkbox-content">
+                    <div class="checkbox-top">
+                      <span class="module-name">SQL Injection Engine</span>
+                      <span class="module-tag crit">A03:2021</span>
+                    </div>
+                    <span class="module-desc">Tests SQLite, MySQL, and generic union/tautology bypasses.</span>
+                  </div>
+                </label>
+
+                <label class="module-checkbox-card">
+                  <input type="checkbox" id="opt-brute" checked />
+                  <div class="checkbox-content">
+                    <div class="checkbox-top">
+                      <span class="module-name">Credential Emulation</span>
+                      <span class="module-tag high">A07:2021</span>
+                    </div>
+                    <span class="module-desc">Tests common credentials, CSRF handling, and token extraction.</span>
+                  </div>
+                </label>
+
+                <label class="module-checkbox-card">
+                  <input type="checkbox" id="opt-ratelimit" checked />
+                  <div class="checkbox-content">
+                    <div class="checkbox-top">
+                      <span class="module-name">Rate Limit Diagnostics</span>
+                      <span class="module-tag med">A04:2021</span>
+                    </div>
+                    <span class="module-desc">Burst velocity test for anti-automation &amp; HTTP 429 backoff.</span>
+                  </div>
+                </label>
+
+                <label class="module-checkbox-card">
+                  <input type="checkbox" id="opt-ai" checked />
+                  <div class="checkbox-content">
+                    <div class="checkbox-top">
+                      <span class="module-name">Contextual Mutation AI</span>
+                      <span class="module-tag ai">AI Hybrid</span>
+                    </div>
+                    <span class="module-desc">Context-aware rule engine tailored for target company naming.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Optional Target Metadata -->
+            <div class="metadata-row">
+              <div class="input-block">
+                <label class="field-label" for="opt-company">Organization Name (Contextual)</label>
+                <input type="text" id="opt-company" class="cyber-input" placeholder="e.g. Acme Corp" />
+              </div>
+
+              <div class="input-block">
+                <label class="field-label" for="opt-usernames">Scoped Account Usernames</label>
+                <input type="text" id="opt-usernames" class="cyber-input" placeholder="admin, root, test@domain.com" />
+              </div>
+            </div>
+
+            <!-- Execution Button -->
+            <div class="action-row">
+              <button type="submit" class="btn-execute-scan" id="btn-start-scan">
+                <span id="scan-spinner" class="spinner-icon" style="display:none;"></span>
+                <span id="scan-btn-text">Execute Security Audit</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Real-Time Discovered Findings List -->
+          <div class="findings-subpanel">
+            <div class="subpanel-header">
+              <div class="subpanel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Live Audit Findings &amp; Diagnostic Telemetry</span>
+              </div>
+              <span class="telemetry-badge" id="findings-count-badge">0 findings</span>
+            </div>
+
+            <div class="findings-container" id="findings-list">
+              <div class="empty-state">
+                <div class="empty-icon">🛡️</div>
+                <div class="empty-text">No active audit findings recorded.</div>
+                <div class="empty-sub">Specify a target URL above and execute an audit to inspect vulnerabilities and remediation patches in real-time.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live Terminal & Engine Stream -->
+        <div class="panel-card terminal-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              <span>Live Engine Telemetry Stream</span>
+            </div>
+            
+            <div class="terminal-controls">
+              <span class="live-pulse-badge">LIVE STREAM</span>
+              <button type="button" class="btn-terminal-action" onclick="copyTerminalLogs()" title="Copy logs to clipboard">Copy</button>
+              <button type="button" class="btn-terminal-action" onclick="clearTerminal()" title="Clear terminal">Clear</button>
+            </div>
+          </div>
+
+          <div class="cyber-terminal">
+            <div class="terminal-bar">
+              <div class="terminal-window-buttons">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+              </div>
+              <span class="terminal-name">sentinal-ai // core-orchestrator.stdout</span>
+              <span class="terminal-buffer-size" id="terminal-stats">IDLE</span>
+            </div>
+            <div class="terminal-scroll-area" id="terminal-output">
+              <div class="terminal-line info">[*] Sentinal-AI Autonomous Security Console initialized.</div>
+              <div class="terminal-line dim">[*] Engine Version: 1.2.0-PRO (OWASP Aligned).</div>
+              <div class="terminal-line dim">[*] Target Dispatcher: Standby. Select target above to initiate audit.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 2: Hash Intelligence Suite -->
+    <div id="tab-cracker" class="tab-pane">
+      <div class="cracker-grid">
+        
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Cryptographic Hash Recovery &amp; Auditing</span>
+            </div>
+          </div>
+
+          <p class="section-desc">
+            Tests password hashes against standard entropy thresholds and multi-threaded recovery engines. Verifies if leaked hashes are susceptible to instantaneous dictionary and permutation compromise.
+          </p>
+
+          <form id="crack-form">
+            <div class="input-block">
+              <label class="field-label" for="crack-hash">Target Hash String</label>
+              <input type="text" id="crack-hash" class="cyber-input mono" placeholder="e.g. 5f4dcc3b5aa765d61d8327deb882cf99" required />
+              <span class="field-hint">Supports MD5, SHA-1, SHA-256, SHA-512, and NTLM patterns.</span>
+            </div>
+
+            <div class="toggle-card">
+              <label class="custom-switch">
+                <input type="checkbox" id="opt-gpu" />
+                <span class="slider"></span>
+              </label>
+              <div class="toggle-text">
+                <strong>Enable Hashcat GPU Acceleration Mode</strong>
+                <span>Falls back to native Python CPU hash pipeline if GPU is unavailable.</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-execute-scan" id="btn-start-crack">
+              <span>Execute Hash Decryption Analysis</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </form>
+
+          <div id="crack-result-box" class="crack-result-container" style="display:none;">
+            <div class="result-header">
+              <span class="result-badge" id="crack-result-badge">STATUS</span>
+              <span class="result-subtitle" id="crack-result-text">Analysis completed</span>
+            </div>
+            <div class="result-body">
+              <div class="result-label">Recovered Plaintext Credential:</div>
+              <div class="result-value mono" id="crack-plain-password">N/A</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hash Test Vectors -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>Verification Test Vectors</span>
+            </div>
+          </div>
+
+          <p class="section-desc">Select any pre-computed hash test vector below to verify password auditing performance:</p>
+
+          <div class="vectors-list">
+            <div class="vector-item" onclick="setCrackVector('5f4dcc3b5aa765d61d8327deb882cf99')">
+              <div class="vector-top">
+                <span class="vector-type">MD5</span>
+                <span class="vector-label">Sample: "password"</span>
+              </div>
+              <code class="vector-code">5f4dcc3b5aa765d61d8327deb882cf99</code>
+            </div>
+
+            <div class="vector-item" onclick="setCrackVector('f865b53623b121fd34ee5426c792e5c33af8c227')">
+              <div class="vector-top">
+                <span class="vector-type">SHA-1</span>
+                <span class="vector-label">Sample: "admin123"</span>
+              </div>
+              <code class="vector-code">f865b53623b121fd34ee5426c792e5c33af8c227</code>
+            </div>
+
+            <div class="vector-item" onclick="setCrackVector('8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92')">
+              <div class="vector-top">
+                <span class="vector-type">SHA-256</span>
+                <span class="vector-label">Sample: "123456"</span>
+              </div>
+              <code class="vector-code">8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</code>
+            </div>
+          </div>
+
+          <div class="advisory-card-sm">
+            <strong>🛡️ Defensive Engineering Note:</strong>
+            <p>Modern applications should discard MD5 and SHA family algorithms for credentials in favor of memory-hard functions such as <strong>Argon2id</strong> or <strong>bcrypt</strong> with work factors ≥ 12.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 3: Reports History -->
+    <div id="tab-reports" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            <span>Executive Audit Archives &amp; Formal Deliverables</span>
+          </div>
+          <button class="btn-terminal-action" onclick="loadFindings()">Refresh Records</button>
+        </div>
+
+        <p class="section-desc">
+          Historical vulnerability logs generated by Sentinal-AI. Inspect detailed diagnostics or export executive-ready HTML/PDF reports with one click.
+        </p>
+
+        <div class="table-responsive">
+          <table class="cyber-table">
+            <thead>
+              <tr>
+                <th>Audit Timestamp</th>
+                <th>Target URI</th>
+                <th>Calculated Risk</th>
+                <th>Findings Overview</th>
+                <th>Export Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reports-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Architecture & Documentation -->
+    <div id="tab-docs" class="tab-pane">
+      <div class="docs-grid">
+        
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <span>Platform Architectural Overview</span>
+            </div>
+          </div>
+          
+          <div class="doc-body">
+            <p>Sentinal-AI is architected around a 4-phase automated security evaluation methodology designed to provide full-cycle penetration testing and remediation.</p>
+            
+            <div class="phases-timeline">
+              <div class="phase-step">
+                <div class="phase-num">01</div>
+                <div class="phase-details">
+                  <h4>Surface Reconnaissance (Scout)</h4>
+                  <p>Crawls forms, detects Single Page Applications (SPAs), parses CSRF protection tokens, and maps REST endpoints.</p>
+                </div>
+              </div>
+
+              <div class="phase-step">
+                <div class="phase-num">02</div>
+                <div class="phase-details">
+                  <h4>Threat Emulation (Attacker)</h4>
+                  <p>Executes non-destructive SQL injection probes, rate limit velocity tests, and authentication bypass checks.</p>
+                </div>
+              </div>
+
+              <div class="phase-step">
+                <div class="phase-num">03</div>
+                <div class="phase-details">
+                  <h4>Intelligence &amp; Mutation Engine</h4>
+                  <p>Applies domain-specific linguistic mutations and token rules to discover weak default credentials.</p>
+                </div>
+              </div>
+
+              <div class="phase-step">
+                <div class="phase-num">04</div>
+                <div class="phase-details">
+                  <h4>Automated Remediation (Architect)</h4>
+                  <p>Synthesizes formal risk reports with ready-to-deploy parameterized query patches across Python, Node, and PHP.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Compliance &amp; Standards Alignment</span>
+            </div>
+          </div>
+
+          <div class="standards-list">
+            <div class="standard-card">
+              <div class="standard-badge">OWASP A03:2021</div>
+              <h4>Injection Vulnerabilities</h4>
+              <p>Detects unsanitized input vectors, evaluates prepared statement protections, and validates error message disclosures.</p>
+            </div>
+
+            <div class="standard-card">
+              <div class="standard-badge">OWASP A07:2021</div>
+              <h4>Identification &amp; Authentication Failures</h4>
+              <p>Audits credential stuffing resilience, weak session management, and missing anti-automation controls.</p>
+            </div>
+
+            <div class="standard-card">
+              <div class="standard-badge">NIST SP 800-63B</div>
+              <h4>Digital Identity Guidelines</h4>
+              <p>Evaluates authenticator strength, rate limiting policies, and password mutation complexity thresholds.</p>
+            </div>
+          </div>
+
+          <div class="author-spotlight">
+            <div class="spotlight-title">Project &amp; Author Credits</div>
+            <p>Built and architected by <strong>Afran Layesh</strong> for the 2026 Cybersecurity Hackathon.</p>
+            <button class="btn-preset" onclick="openAboutModal()">View Developer Profile &amp; Project Info</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Defensive Fix / Remediation Modal -->
+    <div id="fix-modal" class="modal-backdrop" style="display:none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="modal-icon">🛡️</span>
+            <div>
+              <h3 id="modal-fix-title">Vulnerability Remediation Guide</h3>
+              <span class="modal-subtitle">Sentinal-AI Automated Security Advisor</span>
+            </div>
+          </div>
+          <button class="btn-modal-close" onclick="closeFixModal()" title="Close">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="meta-tags-row">
+            <span id="modal-fix-owasp" class="tag-badge owasp">OWASP Top 10</span>
+            <span id="modal-fix-cwe" class="tag-badge cwe">CWE</span>
+            <span id="modal-fix-target" class="tag-badge target mono">Target</span>
+          </div>
+
+          <div class="dialog-section">
+            <h4 class="dialog-heading">Root Cause &amp; Threat Diagnostic</h4>
+            <p id="modal-fix-detail" class="dialog-text"></p>
+          </div>
+
+          <div class="dialog-section highlight">
+            <h4 class="dialog-heading text-emerald">🛡️ Recommended Engineering Mitigation</h4>
+            <p id="modal-fix-remed" class="dialog-text"></p>
+          </div>
+
+          <div class="dialog-section" id="modal-code-section">
+            <h4 class="dialog-heading">Production-Ready Patch Snippets</h4>
+            <div id="modal-code-container" class="snippets-container"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-preset" onclick="closeFixModal()">Dismiss Advisor</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal & Ethical Policy Modal -->
+    <div id="disclaimer-modal" class="modal-backdrop" style="display:none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="modal-icon" style="color:var(--accent-amber);">⚖️</span>
+            <div>
+              <h3>Legal Disclaimer &amp; Ethical Use Policy</h3>
+              <span class="modal-subtitle">Sentinal-AI Terms of Engagement</span>
+            </div>
+          </div>
+          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">✕</button>
+        </div>
+
+        <div class="modal-body legal-text">
+          <div class="alert-box-warning">
+            <strong>CRITICAL LEGAL NOTICE:</strong>
+            <p>Sentinal-AI is an educational penetration testing engine developed solely for cybersecurity research, academic demonstration, and authorized security assessments.</p>
+          </div>
+
+          <h4>1. Authorized Testing Only</h4>
+          <p>This software must only be operated against systems, web applications, or local environments (e.g. DVWA, OWASP Juice Shop, or designated lab mock servers) that you explicitly own or have obtained written, verifiable authorization from the system owner to test.</p>
+
+          <h4>2. Limitation of Liability</h4>
+          <p>The creator and developer of Sentinal-AI (Afran Layesh) accepts <strong>zero responsibility and no liability whatsoever</strong> for any damages, downtime, legal infringements, data loss, or system disruptions resulting from the direct or indirect use, misuse, or deployment of this tool.</p>
+
+          <h4>3. Sole User Responsibility</h4>
+          <p>The operator/end-user bears <strong>sole and complete responsibility</strong> for compliance with all applicable local, national, and international cybersecurity regulations, including the Computer Fraud and Abuse Act (CFAA), the UK Computer Misuse Act, GDPR, and corresponding legislation.</p>
+
+          <h4>4. Academic &amp; Research Statement</h4>
+          <p>This software was developed by an independent creator for research, fun, and hackathon demonstration. It is provided on an "AS-IS" basis with no warranties, express or implied.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-execute-scan" onclick="closeDisclaimerModal()">I Acknowledge &amp; Accept These Terms</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Creator & Hackathon Credits Modal -->
+    <div id="about-modal" class="modal-backdrop" style="display:none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="modal-icon" style="color:var(--accent-cyan);">👨‍💻</span>
+            <div>
+              <h3>Creator Profile &amp; Project Credits</h3>
+              <span class="modal-subtitle">Built with passion for Hackathon 2026</span>
+            </div>
+          </div>
+          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="creator-profile-card">
+            <div class="creator-avatar">AL</div>
+            <div class="creator-info">
+              <h3>Afran Layesh</h3>
+              <span class="creator-role">Lead Architect &amp; Security Engineering Developer</span>
+              <p class="creator-bio">
+                Designed and engineered Sentinal-AI as an autonomous credential intelligence and authentication security auditor to bridge offensive penetration testing with automated defensive remediation.
+              </p>
+            </div>
+          </div>
+
+          <div class="dialog-section">
+            <h4 class="dialog-heading">Project Mission &amp; Purpose</h4>
+            <p class="dialog-text">
+              "I built Sentinal-AI for fun and for the hackathon competition to showcase how intelligent automation can detect authentication vulnerabilities before attackers exploit them, while instantly giving developers copy-pasteable parameterized code fixes to secure their platforms."
+            </p>
+          </div>
+
+          <div class="dialog-section">
+            <h4 class="dialog-heading">Technology Stack</h4>
+            <div class="tech-tags-cloud">
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Python 3.11</span>
+              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">OWASP Juice Shop API</span>
+              <span class="tech-tag">Hashcat Integration</span>
+              <span class="tech-tag">Vanilla CSS / Modern Glassmorphism</span>
+              <span class="tech-tag">Automated Remediation Engine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-preset" onclick="closeAboutModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Polished Footer with Credits & Legal Disclaimers -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-col brand-col">
+        <div class="footer-brand">
+          <span class="brand-dot"></span>
+          <strong>SENTINAL-AI</strong>
+        </div>
+        <p class="footer-text">
+          Enterprise-grade credential intelligence, vulnerability auditing, and automated defensive engineering.
+        </p>
+      </div>
+
+      <div class="footer-col credit-col">
+        <div class="footer-heading">Creator &amp; Hackathon Credits</div>
+        <p class="footer-text">
+          Engineered and architected with precision by <strong>Afran Layesh</strong> for the 2026 Cybersecurity Competition.
+        </p>
+        <span class="hackathon-badge">ðŸ† Hackathon Security Research Project</span>
+      </div>
+
+      <div class="footer-col legal-col">
+        <div class="footer-heading">Ethical Use &amp; Compliance</div>
+        <p class="footer-legal-snippet">
+          Strictly for educational and authorized penetration testing. The author assumes no liability for misuse. The operator is solely responsible for compliance.
+        </p>
+        <button class="footer-legal-link" onclick="openDisclaimerModal()">Review Full Disclaimer Policy →</button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Sentinal-AI Project. Built by Afran Layesh. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="javascript:void(0)" onclick="openDisclaimerModal()">Ethical Policy</a>
+        <a href="javascript:void(0)" onclick="openAboutModal()">Developer Profile</a>
+        <a href="javascript:void(0)" onclick="switchTab('tab-docs')">System Architecture</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js?v=2.1"></script>
+</body>
+</html>
