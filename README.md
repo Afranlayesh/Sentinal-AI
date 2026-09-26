@@ -356,6 +356,56 @@ Sentinal-AI strictly correlates every finding to international cybersecurity fra
 
 ---
 
+## 🗺️ Vision & Future Architecture Roadmap
+
+Sentinal-AI is evolving from an authentication & credential intelligence engine into a complete **autonomous red-team and continuous vulnerability management platform**.
+
+```
+                        ┌──────────────────────────────────────────────┐
+                        │          SENTINAL-AI CORE ENGINE             │
+                        └───────┬──────────────────────────────┬───────┘
+                                │                              │
+                ┌───────────────▼──────────────┐ ┌─────────────▼───────────────┐
+                │   NETWORK & HOST DISCOVERY   │ │    APPLICATION & API AUDIT  │
+                ├──────────────────────────────┤ ├─────────────────────────────┤
+                │ • Nmap (NSE & Port Scanner)  │ │ • Crawler & Form Parser     │
+                │ • Legion (Automated Recon)   │ │ • OWASP Juice Shop Adapter  │
+                │ • Banner & Service Prober    │ │ • Nuclei Template Runner    │
+                └───────────────┬──────────────┘ └─────────────┬───────────────┘
+                                │                              │
+                                └───────────────┬──────────────┘
+                                                │
+                                ┌───────────────▼──────────────┐
+                                │      AI CORRELATION &        │
+                                │    DEFENSIVE REMEDIATION     │
+                                ├──────────────────────────────┤
+                                │ • Gemini / Local Mutation    │
+                                │ • Auto-Remediation (Fixes)   │
+                                │ • Executive HTML / PDF Audit │
+                                └──────────────────────────────┘
+```
+
+### 1. 🌐 Network Layer & Infrastructure Discovery (Nmap Integration)
+* **High-Speed Port Auditing:** Integrated port discovery utilizing raw SYN scans and TCP connect sweeps.
+* **Service & OS Fingerprinting:** Automated service version extraction (`nmap -sV -O`) to detect outdated daemons (OpenSSH, Apache, Nginx, Redis, PostgreSQL).
+* **Nmap Scripting Engine (NSE):** Trigger targeted NSE scripts (`vuln`, `auth`, `ssl-enum-ciphers`) with results piped directly into the Sentinal-AI real-time telemetry feed.
+* **Pure Python Socket Fallback:** Native non-blocking asynchronous socket scanner for zero-dependency execution in cloud containers where external binaries are restricted.
+
+### 2. 🛡️ Autonomous Service Enumeration (Legion Framework)
+* **Multi-Protocol Reconnaissance:** Automated enumeration across non-HTTP services including SMB/Samba, FTP, SSH, SMTP, and LDAP.
+* **Extensible Tool Orchestration:** Pluggable adapter pipeline orchestrating industry-standard tools (Nikto, SSLyze, Gobuster, Hydra, WhatWeb) through a unified API.
+* **Dynamic Attack Vectors:** Automatic pivoting from network discoveries into application-layer exploitation.
+
+### 3. ⚡ Continuous Vulnerability & Template Engine (Nuclei Integration)
+* **Community CVE Rules:** Ingest community-driven YAML templates for zero-day and n-day vulnerabilities.
+* **Cloud Security Posture:** Expanding assessments to include cloud storage misconfigurations (AWS S3, GCP Buckets, Azure Blobs).
+
+### 4. 🤖 Autonomous Multi-Agent Red-Teaming
+* **Self-Refining Exploration:** Autonomous agent that reads target responses, formulates customized attack hypotheses, and iterates until defense boundaries are mapped.
+* **Zero-Touch Remediation Pull Requests:** Automatic generation of Git patches and PRs for developers to immediately patch identified vulnerabilities.
+
+---
+
 ## 👨‍💻 Author & Project Credits
 
 * **Lead Architect & Developer:** **[Afran Layesh](https://github.com/afranlayesh)**
