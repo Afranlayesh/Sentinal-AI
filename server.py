@@ -1,4 +1,4 @@
-﻿"""
+"""
 server.py â€” FastAPI Web Backend for Sentinal-AI Dashboard
 Provides:
   - REST endpoints for scanning, hash cracking, results viewing
@@ -298,8 +298,10 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 def main():
-    print("[*] Starting Sentinal-AI Command Center Dashboard at http://127.0.0.1:8000")
-    uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=False)
+    port = int(os.environ.get("PORT", 8000))
+    host = os.environ.get("HOST", "0.0.0.0" if os.environ.get("PORT") else "127.0.0.1")
+    print(f"[*] Starting Sentinal-AI Command Center Dashboard at http://{host}:{port}")
+    uvicorn.run("server:app", host=host, port=port, reload=False)
 
 
 if __name__ == "__main__":
