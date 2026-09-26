@@ -1,5 +1,5 @@
 """
-juice_shop_adapter.py — X-Auth AI  Juice Shop Target Adapter  v2.0
+juice_shop_adapter.py — Sentinal-AI  Juice Shop Target Adapter  v2.0
 
 WHAT CHANGED vs v1:
 ──────────────────────────────────────────────────────────────────────────────
@@ -275,7 +275,7 @@ def sqli_json(target: dict) -> dict:
         try:
             resp = session.post(
                 target["action"],
-                json={"email": payload, "password": "xauth_sqli_test"},
+                json={"email": payload, "password": "sentinal_sqli_test"},
                 timeout=TARGET_TIMEOUT,
                 verify=False,
             )

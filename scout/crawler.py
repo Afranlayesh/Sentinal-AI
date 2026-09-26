@@ -1,5 +1,5 @@
 """
-crawler.py — X-Auth AI  Universal Hybrid Crawler  v2.0
+crawler.py — Sentinal-AI  Universal Hybrid Crawler  v2.0
 
 WHAT CHANGED vs v1:
 ──────────────────────────────────────────────────────────────────────────────
@@ -59,8 +59,8 @@ try:
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False
     console.print(
-        "[bold yellow]⚠  playwright not installed — SPA dynamic rendering disabled.\n"
-        "   Run:  pip install playwright && playwright install chromium[/bold yellow]"
+        "[bold yellow][!] playwright not installed — SPA dynamic rendering disabled.\n"
+        "    Run:  pip install playwright && playwright install chromium[/bold yellow]"
     )
 
 

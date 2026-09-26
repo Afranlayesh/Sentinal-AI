@@ -1,5 +1,5 @@
 """
-main.py — X-Auth AI  CLI Entry Point
+main.py — Sentinal-AI  CLI Entry Point
 
 Supports THREE target modes:
 
@@ -18,9 +18,17 @@ Auto-detection order:
     Juice Shop check → Generic JSON API check → Traditional HTML crawl
 """
 
+import sys
 import click
 import json
 import os
+
+if sys.platform.startswith("win"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 from core.banner import print_banner
 from core.logger import logger
@@ -28,7 +36,7 @@ from core.logger import logger
 
 @click.group()
 def cli():
-    """X-Auth AI — Credential Intelligence Engine"""
+    """Sentinal-AI — Credential Intelligence Engine"""
     print_banner()
 
 
@@ -325,7 +333,7 @@ def _run_json_api_scan(
 
         for payload, category in PAYLOADS:
             try:
-                body = {user_field: payload, pass_field: "xauth_sqli_test"}
+                body = {user_field: payload, pass_field: "sentinal_sqli_test"}
                 csrf = get_csrf()
                 if csrf:
                     body[csrf_body_key] = csrf
@@ -505,9 +513,15 @@ def _run_json_api_scan(
         }
         rate_results.append(test_rate_limiting(rate_target))
 
-    # ── Report ────────────────────────────────────────────────────────────────
+    # ── Passive security audit & Report ───────────────────────────────────────
+    try:
+        from attacker.passive_auditor import audit_passive_security
+        passive_results = audit_passive_security(base_url)
+    except Exception:
+        passive_results = []
+
     if compile_findings:
-        compile_findings(sqli_results, brute_results, rate_results, base_url)
+        compile_findings(sqli_results, brute_results, rate_results, base_url, meta={"passive_results": passive_results})
 
     console.print("\n[bold green]✔  Scan completed.[/bold green]")
 
@@ -579,8 +593,14 @@ def _run_juice_shop_scan(console, url, sqli, brute, ratelimit, company, username
                        "extra_fields": {}}
         rate_results.append(test_rate_limiting(rate_target))
 
+    try:
+        from attacker.passive_auditor import audit_passive_security
+        passive_results = audit_passive_security(url)
+    except Exception:
+        passive_results = []
+
     if compile_findings:
-        compile_findings(sqli_results, brute_results, rate_results, url)
+        compile_findings(sqli_results, brute_results, rate_results, url, meta={"passive_results": passive_results})
 
     console.print("\n[bold green]✔  Scan completed.[/bold green]")
 
@@ -655,8 +675,14 @@ def _run_traditional_scan(console, url, sqli, brute, ratelimit,
         if ratelimit:
             rate_results.append(test_rate_limiting(target))
 
+    try:
+        from attacker.passive_auditor import audit_passive_security
+        passive_results = audit_passive_security(url)
+    except Exception:
+        passive_results = []
+
     if compile_findings:
-        compile_findings(sqli_results, brute_results, rate_results, url)
+        compile_findings(sqli_results, brute_results, rate_results, url, meta={"passive_results": passive_results})
 
     console.print("\n[bold green]✔  Scan completed.[/bold green]")
 

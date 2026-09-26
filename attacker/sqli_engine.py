@@ -114,8 +114,8 @@ def _get_baseline(session: requests.Session, target: dict) -> dict:
         form_data, action = _fetch_form_data(session, target)
         
         data = {
-            target["username_field"]: "__xauth_baseline__",
-            target["password_field"]: "__xauth_baseline__",
+            target["username_field"]: "__sentinal_baseline__",
+            target["password_field"]: "__sentinal_baseline__",
             **form_data,
         }
         
@@ -147,7 +147,7 @@ def _try_payload(session, target, payload, category, baseline) -> dict:
         
         data = {
             target["username_field"]: payload,
-            target["password_field"]: "xauth_sqli_test",
+            target["password_field"]: "sentinal_sqli_test",
             **form_data,
         }
         

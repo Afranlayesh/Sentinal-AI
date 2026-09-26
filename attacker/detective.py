@@ -1,5 +1,5 @@
 """
-detective.py — X-Auth AI  Findings Aggregator & Reporter  v2.0
+detective.py — Sentinal-AI  Findings Aggregator & Reporter  v2.0
 
 WHAT CHANGED vs v1:
 ──────────────────────────────────────────────────────────────────────────────
@@ -91,15 +91,23 @@ def compile_findings(
             ]
             injection_point = r.get("injection_point", r.get("target", "unknown"))
             findings.append({
-                "type":       "SQL Injection",
-                "severity":   "CRITICAL",
-                "target":     r.get("target", "unknown"),
-                "detail":     (
+                "type":        "SQL Injection",
+                "severity":    "CRITICAL",
+                "target":      r.get("target", "unknown"),
+                "detail":      (
                     f"{r.get('vuln_count', 0)} payload(s) bypassed authentication"
                     f" via {injection_point}"
                 ),
-                "cvss_score": 9.8,
-                "evidence":   vuln_evidence,
+                "cvss_score":  9.8,
+                "owasp":       "A03:2021 - Injection",
+                "cwe":         "CWE-89",
+                "evidence":    vuln_evidence,
+                "remediation": "Use parameterized prepared statements or an ORM. Never concatenate unvalidated user inputs into SQL queries.",
+                "fix_code": {
+                    "python": "# Python (SQLAlchemy/Parameterized):\nstmt = select(User).where(User.username == username, User.password == hashed_pw)\nresult = session.execute(stmt).scalar_one_or_none()",
+                    "nodejs": "// Node.js (Prepared Statement):\nconst [rows] = await db.execute('SELECT * FROM users WHERE username = ? AND password = ?', [username, hash]);",
+                    "php": "// PHP (PDO Prepared):\n$stmt = $pdo->prepare('SELECT * FROM users WHERE username = :u AND password = :p');\n$stmt->execute([':u' => $username, ':p' => $hash]);",
+                },
             })
 
     # ── Brute-force findings ──────────────────────────────────────────────────
@@ -112,25 +120,35 @@ def compile_findings(
         if r.get("found"):
             creds = r.get("credentials") or {}
             findings.append({
-                "type":       "Weak Credentials" if mode != "playwright" else "SPA Auth Bypass",
-                "severity":   "CRITICAL",
-                "target":     r.get("target", "unknown"),
-                "detail":     (
+                "type":        "Weak Credentials" if mode != "playwright" else "SPA Auth Bypass",
+                "severity":    "CRITICAL",
+                "target":      r.get("target", "unknown"),
+                "detail":      (
                     f"Login succeeded with "
                     f"{creds.get('username', '?')} / {creds.get('password', '?')} "
                     f"(attempt #{creds.get('attempt', '?')}, mode={mode})"
                 ),
-                "cvss_score": 9.1,
-                "evidence":   [creds],
+                "cvss_score":  9.1,
+                "owasp":       "A07:2021 - Identification and Authentication Failures",
+                "cwe":         "CWE-521",
+                "evidence":    [creds],
+                "remediation": "Enforce minimum 12-char passphrase complexity, reject common passwords against blacklist, and mandate Multi-Factor Authentication (MFA).",
+                "fix_code": {
+                    "python": "# Python (Password Policy Validation):\nimport zxcvbn\nresult = zxcvbn.zxcvbn(password)\nif result['score'] < 3:\n    raise ValueError('Password is too weak or common. Score: ' + str(result['score']))",
+                    "nodejs": "// Node.js (Password Validator):\nconst zxcvbn = require('zxcvbn');\nif (zxcvbn(password).score < 3) {\n    return res.status(400).json({ error: 'Password does not meet entropy requirements.' });\n}",
+                },
             })
         else:
             findings.append({
-                "type":       "Credential Policy",
-                "severity":   "INFO",
-                "target":     r.get("target", "unknown"),
-                "detail":     f"No weak credentials found after {attempts} attempt(s) (mode={mode})",
-                "cvss_score": 0.0,
-                "evidence":   [],
+                "type":        "Credential Policy",
+                "severity":    "INFO",
+                "target":      r.get("target", "unknown"),
+                "detail":      f"No weak credentials found after {attempts} attempt(s) (mode={mode})",
+                "cvss_score":  0.0,
+                "owasp":       "A07:2021 - Identification and Authentication Failures",
+                "cwe":         "CWE-521",
+                "evidence":    [],
+                "remediation": "Regularly audit administrative accounts and enforce scheduled credential rotation.",
             })
 
     # ── Rate-limiting findings ────────────────────────────────────────────────
@@ -139,26 +157,42 @@ def compile_findings(
             continue
         if r.get("vulnerable"):
             findings.append({
-                "type":       "Missing Rate Limiting",
-                "severity":   "HIGH",
-                "target":     r.get("target", "unknown"),
-                "detail":     (
+                "type":        "Missing Rate Limiting",
+                "severity":    "HIGH",
+                "target":      r.get("target", "unknown"),
+                "detail":      (
                     f"Accepted {r.get('requests_fired', '?')} requests "
                     f"in {r.get('duration_sec', '?')} s with no blocking "
                     f"({r.get('actual_req_per_sec', 0):.1f} req/s)"
                 ),
-                "cvss_score": 7.5,
-                "evidence":   [{"req_per_sec": r.get("actual_req_per_sec", 0)}],
+                "cvss_score":  7.5,
+                "owasp":       "A07:2021 - Identification and Authentication Failures",
+                "cwe":         "CWE-307",
+                "evidence":    [{"req_per_sec": r.get("actual_req_per_sec", 0)}],
+                "remediation": "Implement distributed rate limiting (e.g. Redis sliding window/token bucket) to limit login attempts to max 5 per minute per IP.",
+                "fix_code": {
+                    "python": "# Python (Flask-Limiter / Redis):\nfrom flask_limiter import Limiter\nlimiter = Limiter(key_func=get_remote_address)\n@app.route('/login', methods=['POST'])\n@limiter.limit('5 per minute')\ndef login(): ...",
+                    "nodejs": "// Node.js (express-rate-limit):\nconst rateLimit = require('express-rate-limit');\nconst loginLimiter = rateLimit({ windowMs: 60 * 1000, max: 5, message: 'Too many attempts.' });\napp.post('/api/login', loginLimiter, handleLogin);",
+                    "nginx": "# Nginx Reverse Proxy Rate Limiting:\nlimit_req_zone $binary_remote_addr zone=login_limit:10m rate=5r/m;\nlocation /api/login {\n    limit_req zone=login_limit burst=3 nodelay;\n}",
+                },
             })
+
+    # ── Passive security header & cookie findings ─────────────────────────────
+    passive_results = (meta or {}).get("passive_results", [])
+    for p in passive_results:
+        findings.append(p)
 
     # ── Overall risk scoring ──────────────────────────────────────────────────
     critical_count = sum(1 for f in findings if f["severity"] == "CRITICAL")
     high_count     = sum(1 for f in findings if f["severity"] == "HIGH")
+    medium_count   = sum(1 for f in findings if f["severity"] == "MEDIUM")
+    low_count      = sum(1 for f in findings if f["severity"] == "LOW")
     overall_risk   = (
         "CRITICAL" if critical_count > 0 else
         "HIGH"     if high_count     > 0 else
-        "MEDIUM"   if findings             else
-        "LOW"
+        "MEDIUM"   if medium_count   > 0 else
+        "LOW"      if low_count      > 0 else
+        "INFO"
     )
 
     report = {
@@ -168,6 +202,8 @@ def compile_findings(
         "total_findings": len(findings),
         "critical":       critical_count,
         "high":           high_count,
+        "medium":         medium_count,
+        "low":            low_count,
         "findings":       findings,
         "meta":           meta or {},
     }
@@ -215,6 +251,6 @@ def _print_final_panel(report: dict, filename: str):
         f"Total findings: {total}  |  "
         f"Critical: {critical}  |  High: {high}\n"
         f"[dim]Saved → {filename}[/dim]",
-        title="[bold]X-Auth AI — Scan Complete[/bold]",
+        title="[bold]Sentinal-AI — Scan Complete[/bold]",
         border_style="bright_blue",
     ))

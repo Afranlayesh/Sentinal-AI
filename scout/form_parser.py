@@ -1,5 +1,5 @@
 """
-form_parser.py — X-Auth AI  Auth Target Extractor  v2.0
+form_parser.py — Sentinal-AI  Auth Target Extractor  v2.0
 
 WHAT CHANGED vs v1:
 ──────────────────────────────────────────────────────────────────────────────

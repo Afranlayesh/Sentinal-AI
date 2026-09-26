@@ -1,5 +1,5 @@
 """
-wordlist_merger.py — Credential List Merger  (X-Auth AI)
+wordlist_merger.py — Credential List Merger  (Sentinal-AI)
 
 Merges AI-generated passwords with the built-in credential database.
 

@@ -1,5 +1,5 @@
 """
-ai_guesser.py — Local Rule-Based Intelligence Engine  (X-Auth AI)
+ai_guesser.py — Local Rule-Based Intelligence Engine  (Sentinal-AI)
 
 Fully offline — zero API calls, zero quota issues.
 Uses real penetration-testing password-mutation rules to generate

@@ -1,5 +1,5 @@
 """
-brute_force.py — X-Auth AI Brute Force Engine  (exhaustive mode)
+brute_force.py — Sentinal-AI Brute Force Engine  (exhaustive mode)
 
 DESIGN INTENT:
   Run EVERY credential pair that is passed in — no silent truncation.
@@ -240,8 +240,8 @@ class BruteForceEngine:
         comparison by _is_success().
         """
         inputs = self._get_fresh_inputs()
-        inputs[self.target["username_field"]] = "__xauth_baseline_user__"
-        inputs[self.target["password_field"]] = "__xauth_baseline_pass__"
+        inputs[self.target["username_field"]] = "__sentinal_baseline_user__"
+        inputs[self.target["password_field"]] = "__sentinal_baseline_pass__"
 
         try:
             resp = self.session.post(

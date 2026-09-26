@@ -52,8 +52,8 @@ async def _fire_request(session: aiohttp.ClientSession, target: dict, idx: int, 
         
         # Prepare data
         data = {
-            target["username_field"]: f"xauth_ratelimit_test_{idx}",
-            target["password_field"]: "xauth_ratelimit_test",
+            target["username_field"]: f"sentinal_ratelimit_test_{idx}",
+            target["password_field"]: "sentinal_ratelimit_test",
             **token_data.get("fields", {}),
         }
         

@@ -7,7 +7,7 @@ load_dotenv()
 HASHCAT_PATH      = os.getenv("HASHCAT_PATH", r"D:/D Downloads/hashcat-7.1.2/hashcat-7.1.2/hashcat.exe")
 WORDLIST_DEFAULT  = os.getenv("WORDLIST_DEFAULT", "lab/wordlists/rockyou.txt")
 RESULTS_DIR       = os.getenv("RESULTS_DIR", "lab/results")
-PROJECT_NAME      = os.getenv("PROJECT_NAME", "X-Auth-AI")
+PROJECT_NAME      = os.getenv("PROJECT_NAME", "Sentinal-AI")
 
 # ── Phase 2 ──
 TARGET_TIMEOUT       = int(os.getenv("TARGET_TIMEOUT", 10))
@@ -27,8 +27,8 @@ DB_CONNECTION_STRING  = os.getenv("DB_CONNECTION_STRING", "")
 FINDINGS_DIR = "lab/results/findings"
 AI_CACHE_DIR = "lab/results/ai_cache"
 
-# Add this at the end of core/config.py
+# Debug GEMINI_API_KEY
 if not GEMINI_API_KEY:
-    print("⚠️  DEBUG: GEMINI_API_KEY is EMPTY in config.py")
+    print("[!] DEBUG: GEMINI_API_KEY is EMPTY in config.py")
 else:
-    print(f"✅ DEBUG: GEMINI_API_KEY loaded (Starts with: {GEMINI_API_KEY[:5]}...)")
+    print(f"[+] DEBUG: GEMINI_API_KEY loaded (Starts with: {GEMINI_API_KEY[:5]}...)")

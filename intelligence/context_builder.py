@@ -1,5 +1,5 @@
 """
-context_builder.py — Target Intelligence Builder  (X-Auth AI)
+context_builder.py — Target Intelligence Builder  (Sentinal-AI)
 
 Scrapes the target login page and surrounding HTML to extract company
 branding, keywords, and technology signals that the AI guesser uses

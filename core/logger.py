@@ -9,8 +9,8 @@ logging.basicConfig(
     format="%(message)s",
     handlers=[
         RichHandler(rich_tracebacks=True, show_path=False),
-        logging.FileHandler("logs/xauth.log")
+        logging.FileHandler("logs/sentinal.log")
     ]
 )
 
-logger = logging.getLogger("xauth")
+logger = logging.getLogger("sentinal")

@@ -6,9 +6,8 @@ console = Console()
 
 def print_banner():
     banner_text = Text()
-    banner_text.append("X-AUTH AI\n", style="bold white")
-    banner_text.append("Credential Intelligence Engine\n", style="dim")
-    banner_text.append("National Hackathon Edition", style="italic dim")
+    banner_text.append("SENTINAL-AI\n", style="bold white")
+    banner_text.append("Credential Intelligence Engine", style="dim")
     
     console.print(Panel(
         banner_text,
