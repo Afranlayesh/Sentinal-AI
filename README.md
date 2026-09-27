@@ -1,6 +1,6 @@
 # 🛡️ SENTINAL-AI
 ### Autonomous Authentication Auditing, Credential Intelligence & Automated Remediation Platform
-**Engineered and Architected by [Afran Layesh](https://github.com/afranlayesh) for the 2026 Cybersecurity Hackathon**
+**Engineered and Architected by [Afran Layesh](https://github.com/afranlayesh)**
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-1.0.0-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
