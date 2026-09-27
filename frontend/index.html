@@ -135,7 +135,9 @@
         <div class="metric-card critical">
           <div class="metric-top">
             <span class="metric-title">Critical Severity</span>
-            <div class="metric-icon-box">🚨</div>
+            <div class="metric-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
           </div>
           <div class="metric-value" id="stat-critical">0</div>
           <div class="metric-sub">Immediate exploit risk (SQLi / Auth Bypass)</div>
@@ -144,7 +146,9 @@
         <div class="metric-card high">
           <div class="metric-top">
             <span class="metric-title">High Severity</span>
-            <div class="metric-icon-box">⚠️</div>
+            <div class="metric-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
           </div>
           <div class="metric-value" id="stat-high">0</div>
           <div class="metric-sub">Credential compromise &amp; missing controls</div>
@@ -153,7 +157,9 @@
         <div class="metric-card medium">
           <div class="metric-top">
             <span class="metric-title">Medium Severity</span>
-            <div class="metric-icon-box">ðŸ›¡ï¸</div>
+            <div class="metric-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
           </div>
           <div class="metric-value" id="stat-medium">0</div>
           <div class="metric-sub">Rate limiting gaps &amp; enumeration vectors</div>
@@ -162,7 +168,9 @@
         <div class="metric-card total">
           <div class="metric-top">
             <span class="metric-title">Total Audit Findings</span>
-            <div class="metric-icon-box">📊</div>
+            <div class="metric-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
           </div>
           <div class="metric-value" id="stat-total">0</div>
           <div class="metric-sub">Aggregated security telemetry</div>
@@ -194,7 +202,9 @@
                 <span class="label-badge">HTTP / HTTPS / REST</span>
               </label>
               <div class="input-with-icon">
-                <span class="input-icon">🎯</span>
+                <span class="input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </span>
                 <input type="url" id="target-url" class="cyber-input" placeholder="http://127.0.0.1:5000" value="http://127.0.0.1:5000" required />
               </div>
               <span class="field-hint">Enter base URL, login form address, or direct JSON authentication route.</span>
@@ -285,7 +295,9 @@
 
             <div class="findings-container" id="findings-list">
               <div class="empty-state">
-                <div class="empty-icon">ðŸ›¡ï¸</div>
+                <div class="empty-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
                 <div class="empty-text">No active audit findings recorded.</div>
                 <div class="empty-sub">Specify a target URL above and execute an audit to inspect vulnerabilities and remediation patches in real-time.</div>
               </div>
@@ -419,7 +431,7 @@
           </div>
 
           <div class="advisory-card-sm">
-            <strong>ðŸ›¡ï¸ Defensive Engineering Note:</strong>
+            <strong>Defensive Engineering Note:</strong>
             <p>Modern applications should discard MD5 and SHA family algorithms for credentials in favor of memory-hard functions such as <strong>Argon2id</strong> or <strong>bcrypt</strong> with work factors ≥ 12.</p>
           </div>
         </div>
@@ -543,7 +555,6 @@
           <!-- Future Roadmap & Tool Ecosystem Card -->
           <div style="background:var(--bg-glass); border:1px solid rgba(56,189,248,0.2); border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;">
             <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.75rem;">
-              <span style="font-size:1.2rem;">🗺️</span>
               <h3 style="font-size:1rem; font-weight:700; color:var(--accent-cyan-light); margin:0;">Platform Evolution &amp; Future Tool Ecosystem</h3>
               <span class="badge" style="background:rgba(56,189,248,0.15); color:var(--accent-cyan); font-size:0.65rem; border:1px solid rgba(56,189,248,0.3);">ROADMAP</span>
             </div>
@@ -552,19 +563,19 @@
             </p>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem;">
               <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
-                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">🌐 Nmap Network Prober</div>
+                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">Nmap Network Prober</div>
                 <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">Automated port sweeps, service banner fingerprinting (OpenSSH, Nginx, Redis), and Nmap Scripting Engine (NSE) vulnerability checks.</div>
               </div>
               <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
-                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">🛡️ Legion Recon Framework</div>
+                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">Legion Recon Framework</div>
                 <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">Orchestrated multi-service attack vectors across SMB, FTP, SSH, SMTP, and LDAP with pluggable tool modules.</div>
               </div>
               <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
-                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">⚡ Nuclei &amp; Fuzzing Suite</div>
+                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">Nuclei &amp; Fuzzing Suite</div>
                 <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">Community CVE YAML vulnerability templates, high-speed API directory fuzzing, and cloud asset posture auditing.</div>
               </div>
               <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
-                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">🤖 Autonomous Multi-Agent</div>
+                <div style="font-weight:700; color:#fff; font-size:0.85rem; margin-bottom:4px;">Autonomous Multi-Agent</div>
                 <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">Self-refining target hypothesis testing with automated code patch generation and GitHub PR integration.</div>
               </div>
             </div>
@@ -589,7 +600,9 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon">ðŸ›¡ï¸</span>
+            <span class="modal-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
             <div>
               <h3 id="modal-fix-title">Vulnerability Remediation Guide</h3>
               <span class="modal-subtitle">Sentinal-AI Automated Security Advisor</span>
@@ -611,7 +624,7 @@
           </div>
 
           <div class="dialog-section highlight">
-            <h4 class="dialog-heading text-emerald">ðŸ›¡ï¸ Recommended Engineering Mitigation</h4>
+            <h4 class="dialog-heading text-emerald">Recommended Engineering Mitigation</h4>
             <p id="modal-fix-remed" class="dialog-text"></p>
           </div>
 
@@ -632,13 +645,15 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-amber);">⚖️</span>
+            <span class="modal-icon" style="color:var(--accent-amber);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </span>
             <div>
               <h3>Legal Disclaimer &amp; Ethical Use Policy</h3>
               <span class="modal-subtitle">Sentinal-AI Terms of Engagement</span>
             </div>
           </div>
-          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">✕</button>
+          <button class="btn-modal-close" onclick="closeDisclaimerModal()" title="Close">&#x2715;</button>
         </div>
 
         <div class="modal-body legal-text">
@@ -671,13 +686,15 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title-row">
-            <span class="modal-icon" style="color:var(--accent-cyan);">👨‍💻</span>
+            <span class="modal-icon" style="color:var(--accent-cyan);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
             <div>
               <h3>Creator Profile &amp; Project Credits</h3>
               <span class="modal-subtitle">Built with passion for Hackathon 2026</span>
             </div>
           </div>
-          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">✕</button>
+          <button class="btn-modal-close" onclick="closeAboutModal()" title="Close">&#x2715;</button>
         </div>
 
         <div class="modal-body">
@@ -758,7 +775,7 @@
           <span class="sep">•</span>
           <a href="https://linkedin.com/in/afran-layesh" target="_blank" rel="noopener noreferrer" class="footer-social-link">LinkedIn Profile</a>
         </div>
-        <span class="hackathon-badge">🏆 Hackathon Security Research Project</span>
+        <span class="hackathon-badge">Hackathon Security Research Project</span>
       </div>
 
       <div class="footer-col legal-col">

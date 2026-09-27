@@ -82,6 +82,8 @@ class ScanRequest(BaseModel):
     company: Optional[str] = None
     usernames: Optional[str] = None
     api_login: Optional[str] = None
+    api_user_field: Optional[str] = None    # JSON field name for username
+    api_pass_field: Optional[str] = None    # JSON field name for password
 
 
 class CrackRequest(BaseModel):
@@ -194,6 +196,10 @@ def run_scan_worker(loop, req: ScanRequest):
         cmd.extend(["--usernames", req.usernames])
     if req.api_login:
         cmd.extend(["--api-login", req.api_login])
+    if req.api_user_field:
+        cmd.extend(["--api-user-field", req.api_user_field])
+    if req.api_pass_field:
+        cmd.extend(["--api-pass-field", req.api_pass_field])
 
     try:
         proc = subprocess.Popen(

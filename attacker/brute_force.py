@@ -140,10 +140,14 @@ LOCKOUT_KEYWORDS = {
 FAILURE_KEYWORDS = {
     "invalid", "incorrect", "failed", "error", "unsuccessful",
     "wrong", "denied", "bad credentials", "login failed",
+    "authentication failed", "invalid credentials", "invalid password",
+    "invalid username",
 }
+# Post-login terms that should NOT appear on the login page itself
 SUCCESS_KEYWORDS = {
-    "logout", "log out", "sign out", "welcome", "dashboard",
-    "profile", "account", "logged in", "dvwa",
+    "logout", "log out", "sign out",
+    "logged in", "dashboard", "dvwa",
+    "my dashboard", "user dashboard",
 }
 
 
@@ -280,15 +284,19 @@ class BruteForceEngine:
         Signal 2: HTTP redirect history pointed to a non-login path.
         Signal 3: Success keywords appeared that were absent in the baseline.
         Signal 4: Failure keywords that WERE in the baseline disappeared.
-        Signal 5: Response body is >= 2x the baseline size.
+        Signal 5: Response body is >= 2.5x the baseline size.
         """
         body_lower    = resp.text.lower()
         baseline_url  = self.baseline.get("url", "")
         baseline_body = self.baseline.get("body_sample", "")
 
-        # Signal 1 — URL redirect
+        # Signal 1 — URL redirect away from login
         if resp.url != baseline_url and "login" not in resp.url.lower():
-            return True
+            # Also require the new URL looks like a post-auth page
+            post_auth_hints = ("dashboard", "home", "welcome", "profile",
+                               "dvwa", "my-account", "account", "panel")
+            if any(h in resp.url.lower() for h in post_auth_hints):
+                return True
 
         # Signal 2 — explicit HTTP redirect
         for r in resp.history:
@@ -307,9 +315,9 @@ class BruteForceEngine:
         if baseline_had_failure and not any(kw in body_lower for kw in FAILURE_KEYWORDS):
             return True
 
-        # Signal 5 — page dramatically larger
+        # Signal 5 — page dramatically larger (2.5x to reduce false positives)
         baseline_len = self.baseline.get("length", 0)
-        if baseline_len and len(resp.text) >= baseline_len * 2.0:
+        if baseline_len and len(resp.text) >= baseline_len * 2.5:
             return True
 
         return False

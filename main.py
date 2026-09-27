@@ -10,9 +10,11 @@ Supports THREE target modes:
      → auto-detected via /rest/user/login fingerprint
      → uses juice_shop_adapter (JWT detection, SQLite payloads)
 
-  3. Generic JSON REST API targets (SecureLab, custom backends)
-     → auto-detected when URL returns JSON on POST with 401/200
+  3. Generic JSON REST API targets (any backend returning JSON)
+     → auto-detected when URL returns JSON on POST with 200/401/403/422
      → uses generic_api_adapter (configurable field names, success detection)
+     → Supports Express, Django, Flask, Laravel, Spring Boot, Rails,
+        FastAPI, ASP.NET, Node/Hapi, Go/Gin, and any custom backend.
 
 Auto-detection order:
     Juice Shop check → Generic JSON API check → Traditional HTML crawl
@@ -145,37 +147,120 @@ def scan(url, sqli, brute, ratelimit, max_pages, company, usernames, ai,
 
 def _detect_json_api(base_url: str) -> str | None:
     """
-    Probes common JSON login endpoint paths under base_url.
-    Returns the first one that responds with JSON and looks like a login endpoint.
-    Returns None if nothing found (fall through to HTML crawl).
+    Probes a wide range of common JSON login endpoint paths under base_url.
+    Tries multiple probe body schemas (email/password, username/password,
+    user/pass) so apps that reject unknown field names still respond with JSON.
+    Returns the first endpoint that responds with JSON on any auth-relevant
+    HTTP status code.  Returns None to fall through to the HTML crawler.
     """
     import requests
 
-    # Common JSON login endpoint suffixes to probe
+    # Ordered from most-specific to most-generic.
+    # Covers Express/Node, Django REST, Flask, Laravel, Spring Boot,
+    # ASP.NET Core, FastAPI, Rails Devise, Go/Gin, Hapi, Phoenix, etc.
     CANDIDATES = [
+        # ── versioned REST paths ───────────────────────────────────────
+        "/api/v1/auth/login",
+        "/api/v2/auth/login",
+        "/api/v1/login",
+        "/api/v2/login",
+        "/api/v1/users/login",
+        "/api/v1/user/login",
+        "/api/v1/signin",
+        "/api/v1/session",
+        "/api/v1/token",
+        # ── common non-versioned paths ────────────────────────────────
         "/api/auth/login",
+        "/api/auth/signin",
+        "/api/auth/token",
+        "/api/auth",
         "/api/login",
-        "/auth/login",
+        "/api/signin",
+        "/api/session",
+        "/api/token",
         "/api/user/login",
+        "/api/users/login",
+        "/api/users/signin",
+        "/api/authenticate",
+        "/api/authentication",
+        # ── framework-specific conventions ───────────────────────────
+        "/auth/login",
+        "/auth/signin",
+        "/auth/token",
+        "/auth/local",
+        "/auth/jwt",
+        "/auth",
+        "/user/login",
+        "/users/login",
+        "/users/sign_in",           # Rails Devise
+        "/account/login",
+        "/accounts/login",
+        "/member/login",
+        "/members/login",
+        "/session",
+        "/sessions",
+        "/token",
+        "/oauth/token",
+        "/connect/token",           # IdentityServer / OpenIddict
+        "/identity/token",
+        # ── root/top-level ────────────────────────────────────────────
         "/login",
+        "/signin",
+        "/sign-in",
+        "/authenticate",
+        "/authentication",
     ]
+
+    # Multiple probe bodies to maximise the chance of getting a JSON response
+    # (some APIs validate field names and return 400 with text/html if unknown)
+    PROBE_BODIES = [
+        {"email": "probe@probe.local", "password": "__sentinal_probe__"},
+        {"username": "__sentinal_probe__", "password": "__sentinal_probe__"},
+        {"user": "__sentinal_probe__", "pass": "__sentinal_probe__"},
+        {"login": "__sentinal_probe__", "password": "__sentinal_probe__"},
+    ]
+
+    # HTTP status codes that indicate a real auth endpoint responded
+    AUTH_STATUS_CODES = {200, 400, 401, 403, 404, 422, 429, 500}
+    # 404 is excluded for the main check but some frameworks return 422/400
+    JSON_AUTH_CODES   = {200, 401, 403, 422, 400}
+
+    session = requests.Session()
+    session.headers.update({
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    })
 
     for path in CANDIDATES:
         url = base_url.rstrip("/") + path
-        try:
-            resp = requests.post(
-                url,
-                json={"username": "__probe__", "password": "__probe__"},
-                timeout=5,
-                verify=False,
-                allow_redirects=False,
-            )
-            ct = resp.headers.get("Content-Type", "")
-            # A JSON response to a POST probe means this is a real API endpoint
-            if "application/json" in ct and resp.status_code in (200, 401, 403, 422):
-                return url
-        except Exception:
-            continue
+        for body in PROBE_BODIES:
+            try:
+                resp = session.post(
+                    url,
+                    json=body,
+                    timeout=6,
+                    verify=False,
+                    allow_redirects=False,
+                )
+                ct = resp.headers.get("Content-Type", "")
+
+                # Primary signal: genuine JSON response on an auth-relevant code
+                if "application/json" in ct and resp.status_code in JSON_AUTH_CODES:
+                    return url
+
+                # Secondary signal: JSON body but wrong Content-Type header
+                # (some frameworks omit charset or use text/json)
+                if resp.status_code in JSON_AUTH_CODES:
+                    try:
+                        resp.json()   # will raise if not JSON
+                        return url
+                    except Exception:
+                        pass
+
+            except requests.exceptions.ConnectionError:
+                break          # path doesn't exist on this host — try next
+            except Exception:
+                continue       # timeout / SSL — try next probe body
 
     return None
 
@@ -290,18 +375,73 @@ def _run_json_api_scan(
 
     # ── Helper: check if response means login success ─────────────────────────
     def is_success(resp) -> bool:
-        if resp.status_code != 200:
+        """
+        Recognises successful JSON authentication across many frameworks.
+        Checks both HTTP status codes and common JSON response shapes.
+        """
+        # Some apps return 201 Created on first login / registration
+        if resp.status_code not in (200, 201):
             return False
         try:
             data = resp.json()
-            return (
-                data.get("status") == "success"
-                or "token" in data
-                or "user" in data
-                or data.get("success") is True
-            )
+
+            # ── Token-based signals (JWT / OAuth / API keys) ──────────────────
+            token_keys = {
+                "token", "access_token", "accessToken",
+                "jwt", "id_token", "idToken",
+                "auth_token", "authToken",
+                "session_token", "sessionToken",
+                "api_key", "apiKey",
+                "bearer", "refresh_token",
+            }
+            if any(k in data for k in token_keys):
+                return True
+
+            # ── Nested token (e.g. {"authentication": {"token": "..."}})
+            for v in data.values():
+                if isinstance(v, dict):
+                    if any(k in v for k in token_keys):
+                        return True
+
+            # ── Explicit status/success fields ────────────────────────────────
+            if data.get("status") in ("success", "ok", "OK", "authenticated",
+                                       "authorized", "logged_in", "loggedIn"):
+                return True
+            if data.get("success") is True:
+                return True
+            if data.get("ok") is True:
+                return True
+            if data.get("authenticated") is True:
+                return True
+
+            # ── User/session object in response ───────────────────────────────
+            user_keys = {"user", "account", "profile", "member", "session",
+                         "data", "result", "payload", "me"}
+            # Only count "data"/"result"/"payload" if they contain a user-shaped dict
+            for k in user_keys:
+                v = data.get(k)
+                if isinstance(v, dict) and ("id" in v or "email" in v
+                                             or "username" in v or "name" in v):
+                    return True
+
+            # ── message field ─────────────────────────────────────────────────
+            msg = str(data.get("message", "") or data.get("msg", "")).lower()
+            if any(w in msg for w in ("success", "authenticated", "logged in",
+                                       "welcome", "authorized")):
+                return True
+
         except Exception:
-            return False
+            pass
+
+        # ── Non-JSON fallback: large response body after 200 ──────────────────
+        # Some custom backends return HTTP 200 with HTML/text on success
+        if resp.status_code == 200 and len(resp.text) > 500:
+            body = resp.text.lower()
+            if any(w in body for w in ("dashboard", "welcome", "logged in",
+                                        "logout", "sign out", "my account")):
+                return True
+
+        return False
 
     # ── SQLi phase ────────────────────────────────────────────────────────────
     if sqli:

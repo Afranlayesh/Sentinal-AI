@@ -197,45 +197,62 @@ def _try_payload(session, target, payload, category, baseline) -> dict:
 def _analyse_response(resp, baseline, elapsed, payload) -> tuple:
     """Analyze response for SQL injection indicators"""
     body = resp.text.lower()
-    
-    # Success indicators
+
+    # Success indicators — kept specific to post-login pages only
     success_kw = {
-        "dashboard", "welcome", "logout", "profile",
-        "account", "success", "logged in", "index",
-        "home", "main", "dvwa"
+        "dashboard", "welcome", "logout", "log out", "sign out",
+        "logged in", "dvwa", "my account", "user profile",
     }
-    
-    # Failure indicators
+
+    # Failure indicators — SQL/DB keywords intentionally excluded here
+    # because they are checked separately as error-based injection signals
     failure_kw = {
-        "invalid", "incorrect", "wrong", "failed", "error",
+        "invalid", "incorrect", "wrong", "failed",
         "denied", "unauthorized", "bad credentials", "login failed",
-        "sql", "syntax", "mysql", "database"
+        "authentication failed", "invalid credentials",
     }
-    
+
+    # SQL error strings that indicate the backend is vulnerable
+    sql_error_kw = [
+        "sql error", "sql syntax", "you have an error in your sql",
+        "mysql_fetch", "pg_exec", "sqlite_", "odbc_",
+        "microsoft ole db", "jdbc", "ora-", "db2 sql",
+        "syntax error", "unterminated string", "unclosed quotation mark",
+        "warning: mysql", "warning: pg_", "operationalerror",
+        "pdoexception", "sqlexception",
+    ]
+
     # Signal 1: Time-based injection
     if elapsed > 2.5 and any(k in payload.upper() for k in ("SLEEP", "WAITFOR", "PG_SLEEP")):
         return True, f"response delayed {elapsed:.1f}s — time injection confirmed"
-    
-    # Signal 2: URL changed away from login
+
+    # Signal 2: URL changed to a clearly post-auth page
     if resp.url != baseline["final_url"]:
-        if any(kw in resp.url.lower() for kw in ("dashboard", "home", "welcome", "index", "main", "dvwa")):
+        post_auth = ("dashboard", "home", "welcome", "profile", "dvwa", "my-account")
+        if any(kw in resp.url.lower() for kw in post_auth):
             return True, f"redirected to {resp.url}"
-    
-    # Signal 3: Success keywords appeared
+
+    # Signal 3: Success keywords appeared that weren't in baseline
     if any(kw in body for kw in success_kw):
         if not any(kw in baseline["body_lower"] for kw in success_kw):
             return True, "success keyword appeared — login bypassed"
-    
-    # Signal 4: Error messages (indicates injection)
-    if any(kw in body for kw in ["sql", "mysql", "syntax", "database error"]):
-        return True, "SQL error message detected"
-    
-    # Signal 5: Body length significantly different
+
+    # Signal 4: SQL error messages (error-based injection detection)
+    if any(kw in body for kw in sql_error_kw):
+        return True, "SQL error message detected in response body"
+
+    # Signal 5: HTTP 500 (server crash from bad SQL)
+    if resp.status_code == 500:
+        return True, "HTTP 500 — SQL error triggered server crash"
+
+    # Signal 6: Body length dramatically different (≥50% change, not just 30%)
     base_len = baseline["body_length"] or 1
     ratio = abs(len(resp.text) - base_len) / base_len
-    if ratio > 0.30 and resp.status_code == 200:
-        return True, f"body length changed {ratio:.0%} — different page served"
-    
+    if ratio >= 0.50 and resp.status_code == 200:
+        # Only flag if success keyword is also present (reduces false positives)
+        if any(kw in body for kw in success_kw):
+            return True, f"body length changed {ratio:.0%} with success indicators"
+
     return False, "no indicators"
 
 

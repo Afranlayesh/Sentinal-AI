@@ -140,7 +140,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🖥️ Running the Platform
+##  Running the Platform
 
 ### 1. Launch the Command Center Web Dashboard
 Start the FastAPI server and WebSocket telemetry backend:

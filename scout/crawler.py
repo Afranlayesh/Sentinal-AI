@@ -192,14 +192,24 @@ def _static_fetch(session: requests.Session, url: str):
 def _detect_spa(soup: BeautifulSoup, raw_html: str) -> bool:
     """
     Heuristics to decide if the page is a client-side rendered SPA.
-    More robust than v1 — checks script bundle fingerprints too.
+    More robust — avoids false positives on traditional HTML login pages
+    that just happen to have little inline text (heavy CSS/templated sites).
     """
+    # Traditional <form> with a password field → definitely not a pure SPA
+    for form in soup.find_all("form"):
+        if form.find("input", {"type": "password"}):
+            return False
+
     # Root mount points used by React / Vue / Angular
     if soup.find(id="root") or soup.find(id="app") or soup.find(id="__next"):
         return True
 
-    # Vite / CRA / Webpack bundle filenames
-    spa_patterns = ["/assets/index", "bundle.js", "main.js", "chunk.", "vite", "react", "angular"]
+    # Vite / CRA / Webpack / Next bundle filenames
+    spa_patterns = [
+        "/assets/index", "bundle.js", "main.chunk.js",
+        "vendor.js", "chunk.", "vite", "react",
+        "angular", ".svelte", "nuxt",
+    ]
     for script in soup.find_all("script", src=True):
         src = script["src"].lower()
         if any(p in src for p in spa_patterns):
@@ -209,9 +219,11 @@ def _detect_spa(soup: BeautifulSoup, raw_html: str) -> bool:
     if soup.find("app-root") or soup.find("nuxt") or soup.find(id="__nuxt"):
         return True
 
-    # Very little visible text → JS rendered
+    # Very little visible text AND no traditional inputs → JS-rendered
+    # Threshold raised to 200 chars to avoid misclassifying simple login pages
     body = soup.find("body")
-    if body and len(body.get_text(strip=True)) < 100:
+    has_inputs = bool(soup.find("input"))
+    if body and len(body.get_text(strip=True)) < 200 and not has_inputs:
         return True
 
     return False
